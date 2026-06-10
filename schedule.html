@@ -124,18 +124,18 @@
                 </nav>
             </div>
 
-            <!-- Google / Apple 行事曆架接 -->
+            <!-- Google 行事曆架接 (已精簡 Apple) -->
             <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-5 rounded-2xl border border-indigo-100 shadow-sm">
                 <h4 class="text-xs font-black text-indigo-900 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                     <i class="fa-solid fa-circle-nodes text-ncu-purple"></i>
                     <span id="ui-syncTitle">外部行事曆架接</span>
                 </h4>
                 <p class="text-xs text-indigo-700 leading-relaxed mb-3.5" id="ui-syncDesc">
-                    支援將追蹤的日程無縫串接至 Google 或 Apple 行事曆！
+                    支援將追蹤的日程無縫串接至 Google 行事曆！
                 </p>
                 <button onclick="openSyncModal()" class="w-full bg-white border border-indigo-200 hover:border-indigo-400 text-ncu-purple text-xs font-bold py-2 px-3 rounded-xl transition-all shadow-sm flex items-center justify-center gap-2">
                     <i class="fa-solid fa-calendar-plus"></i>
-                    <span id="ui-syncBtnText">架接我的 Google/Apple</span>
+                    <span id="ui-syncBtnText">架接我的 Google 行事曆</span>
                 </button>
             </div>
 
@@ -364,7 +364,6 @@
                 <button type="button" id="ui-chipDorm" onclick="askQuickQuestion(currentLang === 'zh' ? '第2學期宿舍申請是哪時候？' : 'When is the dorm application for next semester?')" class="bg-slate-100 hover:bg-ncu-lightPurple hover:text-ncu-purple px-2.5 py-1 rounded-full text-slate-600 transition-colors shrink-0">2學期宿舍申請？</button>
             </div>
 
-            <!-- 完美的 Form 機制，綁定在下方 setupChatListeners 防止重整 -->
             <form id="aiChatForm" class="border-t border-slate-200 p-3 bg-white flex items-center gap-2">
                 <input type="text" id="aiInput" class="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-ncu-purple focus:border-transparent transition-all" placeholder="請輸入您的問題...">
                 <button type="submit" id="aiSendBtn" class="w-9 h-9 bg-ncu-purple hover:bg-ncu-purpleHover text-white rounded-xl flex items-center justify-center transition-colors">
@@ -484,7 +483,7 @@
         </div>
     </div>
 
-    <!-- 行事曆外部架接說明與匯出 Modal -->
+    <!-- 行事曆外部架接說明與匯出 Modal (已精簡 Apple，僅保留 Google 說明) -->
     <div id="syncModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
             <div class="bg-gradient-to-r from-ncu-purple to-indigo-800 text-white p-5 flex items-center justify-between">
@@ -504,7 +503,7 @@
                     <h4 class="font-bold text-indigo-900 text-xs uppercase tracking-wider" id="ui-syncStepsTitle">架接步驟說明：</h4>
                     <ol class="list-decimal pl-4 space-y-1 text-xs text-indigo-800">
                         <li id="ui-syncStep1">點擊下方按鈕，匯出目前的「已追蹤日程」ICS 檔。</li>
-                        <li id="ui-syncStep2">打開您的 <strong>Google 行事曆</strong> 或 <strong>Apple 行事曆</strong>。</li>
+                        <li id="ui-syncStep2">打開您的 <strong>Google 行事曆</strong>。</li>
                         <li id="ui-syncStep3">點選「設定」→「匯入與匯出」，選擇下載的 <code>ncu_tracked_events.ics</code> 即可一秒同步！</li>
                     </ol>
                 </div>
@@ -604,7 +603,7 @@
                 syncModalDesc: "本行事曆系統符合全球通用的 <strong class=\"text-ncu-purple\">iCalendar (ICS)</strong> 標準，可以將您收藏追蹤的事項匯入您的個人行動裝置！",
                 syncStepsTitle: "架接步驟說明：",
                 syncStep1: "點擊下方按鈕，匯出目前的「已追蹤日程」ICS 檔。",
-                syncStep2: "打開您的 <strong>Google 行事曆</strong> 或 <strong>Apple 行事曆</strong>。",
+                syncStep2: "打開您的 <strong>Google 行事曆</strong>。",
                 syncStep3: "點選「設定」→「匯入與匯出」，選擇下載的 <code>ncu_tracked_events.ics</code> 即可一秒同步！",
                 exportTrackedBtn: "匯出我的追蹤日程 (.ics 檔案)",
                 exportAllBtn: "匯出全校所有日程 (.ics 檔案)",
@@ -615,9 +614,8 @@
                 apiSaveBtn: "儲存設定",
                 chipPower: "學校停電時間？",
                 chipDorm: "2學期宿舍申請？",
-                chipGraduation: "畢業典禮時間？",
                 exportTrackedEmpty: "您目前尚未追蹤任何日程項目，無法匯出喔！",
-                exportTrackedSuccess: "已成功產生追蹤日程之 ICS 檔！打開 Google/Apple 行事曆匯入即可。",
+                exportTrackedSuccess: "已成功產生追蹤日程之 ICS 檔！打開 Google 行事曆匯入即可。",
                 exportAllSuccess: "已成功產生全校全日行事曆 ICS 檔！",
                 apiSaved: "Gemini 2.5 API Key 已儲存！",
                 apiCleared: "API Key 已清除。",
@@ -673,8 +671,8 @@
                 syncModalDesc: "Export ICS files.",
                 syncStepsTitle: "Steps:",
                 syncStep1: "Export.",
-                syncStep2: "Open Google/Apple.",
-                syncStep3: "Import.",
+                syncStep2: "Open your <strong>Google Calendar</strong>.",
+                syncStep3: "Go to Settings → Import, select the downloaded <code>ncu_tracked_events.ics</code> file.",
                 exportTrackedBtn: "Export Tracked",
                 exportAllBtn: "Export All",
                 apiModalTitle: "Set API Key",
@@ -684,7 +682,6 @@
                 apiSaveBtn: "Save",
                 chipPower: "Power outage?",
                 chipDorm: "Dorm application?",
-                chipGraduation: "Graduation?",
                 exportTrackedEmpty: "No tracked events.",
                 exportTrackedSuccess: "ICS generated.",
                 exportAllSuccess: "All events exported.",
@@ -794,7 +791,6 @@
                 'ui-apiSaveBtn': t.apiSaveBtn,
                 'ui-chipPower': t.chipPower,
                 'ui-chipDorm': t.chipDorm,
-                'ui-chipGraduation': t.chipGraduation
             };
 
             Object.entries(optionalTextIds).forEach(([id, value]) => {
@@ -858,12 +854,12 @@
                 if (ev.category && !checkedBoxes.includes(ev.category)) return false;
                 if (searchQuery) {
                     const q = searchQuery.toLowerCase();
-                    const zhTitle = (ev.title && ev.title.zh) ? ev.title.zh.toLowerCase() : "";
-                    const enTitle = (ev.title && ev.title.en) ? ev.title.en.toLowerCase() : "";
-                    const zhDept = (ev.dept && ev.dept.zh) ? ev.dept.zh.toLowerCase() : "";
-                    const enDept = (ev.dept && ev.dept.en) ? ev.dept.en.toLowerCase() : "";
-                    const zhDesc = (ev.desc && ev.desc.zh) ? ev.desc.zh.toLowerCase() : "";
-                    const enDesc = (ev.desc && ev.desc.en) ? ev.desc.en.toLowerCase() : "";
+                    const zhTitle = (ev.title && typeof ev.title === 'object' && ev.title.zh) ? ev.title.zh.toLowerCase() : (typeof ev.title === 'string' ? ev.title.toLowerCase() : "");
+                    const enTitle = (ev.title && typeof ev.title === 'object' && ev.title.en) ? ev.title.en.toLowerCase() : (typeof ev.title === 'string' ? ev.title.toLowerCase() : "");
+                    const zhDept = (ev.dept && typeof ev.dept === 'object' && ev.dept.zh) ? ev.dept.zh.toLowerCase() : (typeof ev.dept === 'string' ? ev.dept.toLowerCase() : "");
+                    const enDept = (ev.dept && typeof ev.dept === 'object' && ev.dept.en) ? ev.dept.en.toLowerCase() : (typeof ev.dept === 'string' ? ev.dept.toLowerCase() : "");
+                    const zhDesc = (ev.desc && typeof ev.desc === 'object' && ev.desc.zh) ? ev.desc.zh.toLowerCase() : (typeof ev.desc === 'string' ? ev.desc.toLowerCase() : "");
+                    const enDesc = (ev.desc && typeof ev.desc === 'object' && ev.desc.en) ? ev.desc.en.toLowerCase() : (typeof ev.desc === 'string' ? ev.desc.toLowerCase() : "");
 
                     const titleMatch = zhTitle.includes(q) || enTitle.includes(q);
                     const deptMatch = zhDept.includes(q) || enDept.includes(q);
@@ -1072,7 +1068,8 @@
                     else if (isLeftCut) roundedClass = "rounded-r-lg rounded-l-none border-l-0";
                     else if (isRightCut) roundedClass = "rounded-l-lg rounded-r-none border-r-0";
 
-                    let displayTitle = ev.title[currentLang];
+                    const titleText = (ev.title && typeof ev.title === 'object') ? (ev.title[currentLang] || ev.title['zh'] || ev.title['en'] || '') : (ev.title || '');
+                    let displayTitle = titleText;
                     if (isLeftCut) displayTitle = "← " + displayTitle;
                     if (isRightCut) displayTitle = displayTitle + " →";
 
@@ -1118,12 +1115,14 @@
                 
                 const showDate = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
                 const catStyle = getCategoryStyle(ev.category);
+                
+                const titleText = (ev.title && typeof ev.title === 'object') ? (ev.title[currentLang] || ev.title['zh'] || ev.title['en'] || '') : (ev.title || '');
 
                 item.innerHTML = `
                     <div class="flex items-center gap-4">
                         <div class="bg-slate-100 px-3 py-1.5 rounded-lg text-xs font-bold shrink-0">${showDate}</div>
                         <span class="text-[11px] font-black px-2.5 py-1 rounded-full ${catStyle.badgeClass}">${catStyle.name}</span>
-                        <h4 class="font-bold text-slate-800 truncate">${ev.title[currentLang]}</h4>
+                        <h4 class="font-bold text-slate-800 truncate">${titleText}</h4>
                     </div>
                     <i class="${trackedEventIds.includes(ev.id) ? 'fa-solid fa-star text-amber-500' : 'fa-regular fa-star text-slate-300'}"></i>
                 `;
@@ -1132,23 +1131,78 @@
             parent.appendChild(wrapper);
         }
 
+        // ================= 近期重要時程 (前一週到後一個月) 核心引擎 =================
         function renderUrgentDeadlines() {
             const container = document.getElementById('urgentContainer'); 
             container.innerHTML = "";
             const today = new Date(); 
             today.setHours(0,0,0,0);
             
-            const tracked = campusEvents.filter(ev => trackedEventIds.includes(ev.id)).sort((a,b) => new Date(a.endDate) - new Date(b.endDate));
+            const oneWeekAgo = new Date(today);
+            oneWeekAgo.setDate(today.getDate() - 7);
+            const oneMonthLater = new Date(today);
+            oneMonthLater.setMonth(today.getMonth() + 1);
+            oneMonthLater.setHours(23, 59, 59, 999);
+
+            const tracked = (campusEvents || []).filter(ev => {
+                if (!trackedEventIds.includes(ev.id)) return false;
+                
+                const sDate = new Date(ev.startDate);
+                sDate.setHours(0,0,0,0);
+                const eDate = new Date(ev.endDate);
+                eDate.setHours(23, 59, 59, 999);
+
+                return eDate >= oneWeekAgo && sDate <= oneMonthLater;
+            }).sort((a,b) => new Date(a.endDate) - new Date(b.endDate));
+
             tracked.forEach(ev => {
                 const limitDate = new Date(ev.endDate);
                 limitDate.setHours(0,0,0,0);
                 const diff = Math.ceil((limitDate - today) / 86400000);
+                
                 const item = document.createElement('div');
-                item.className = "bg-white/10 p-2 rounded-lg flex justify-between items-center text-xs cursor-pointer";
+                item.className = "bg-white/10 p-2.5 rounded-xl flex justify-between items-center text-xs cursor-pointer hover:bg-white/20 transition-all border border-white/5";
                 item.onclick = () => openDetailModal(ev.id);
-                item.innerHTML = `<div class="truncate flex-1 pr-2"><b>${ev.title[currentLang]}</b><br><span class="opacity-70">${ev.endDate}</span></div><span class="px-2 py-0.5 rounded shrink-0 ${diff <= 3 ? 'bg-red-500 animate-pulse' : 'bg-white/20'}">${diff < 0 ? 'Ended' : (diff === 0 ? 'Today' : diff + 'd')}</span>`;
+                
+                let diffText = "";
+                let badgeClass = "bg-white/20";
+                
+                if (diff < 0) {
+                    const absDiff = Math.abs(diff);
+                    diffText = currentLang === 'zh' ? `已截止 ${absDiff} 天` : `Ended ${absDiff}d ago`;
+                    badgeClass = "bg-slate-500/40 text-slate-300 border border-slate-500/20";
+                } else if (diff === 0) {
+                    diffText = currentLang === 'zh' ? '今天截止' : 'Today';
+                    badgeClass = "bg-red-500 animate-pulse text-white font-black";
+                } else if (diff <= 3) {
+                    diffText = currentLang === 'zh' ? `剩 ${diff} 天` : `${diff}d left`;
+                    badgeClass = "bg-red-500/80 animate-pulse text-white font-bold";
+                } else {
+                    diffText = currentLang === 'zh' ? `剩 ${diff} 天` : `${diff}d left`;
+                    badgeClass = "bg-emerald-500/20 text-emerald-200 border border-emerald-500/30";
+                }
+
+                const showDate = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
+                const titleText = (ev.title && typeof ev.title === 'object') ? (ev.title[currentLang] || ev.title['zh'] || ev.title['en'] || '') : (ev.title || '');
+
+                item.innerHTML = `
+                    <div class="truncate flex-1 pr-2">
+                        <b class="text-white text-xs">${titleText}</b>
+                        <br>
+                        <span class="opacity-60 text-[10px]">${showDate}</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-lg shrink-0 text-[10px] font-medium ${badgeClass}">${diffText}</span>
+                `;
                 container.appendChild(item);
             });
+
+            if (tracked.length === 0) {
+                container.innerHTML = `
+                    <p class="text-xs text-purple-300 italic text-center py-4">
+                        ${currentLang === 'zh' ? '此區間無追蹤日程' : 'No tracked events in this range'}
+                    </p>
+                `;
+            }
         }
 
         function openDetailModal(id) {
@@ -1165,10 +1219,14 @@
             catBadge.innerText = catStyle.name;
             catBadge.className = `text-xs font-bold px-2.5 py-1 rounded-full ${catStyle.badgeClass}`;
 
-            document.getElementById('modalTitle').innerText = ev.title[currentLang];
+            const titleText = (ev.title && typeof ev.title === 'object') ? (ev.title[currentLang] || ev.title['zh'] || ev.title['en'] || '') : (ev.title || '');
+            const deptText = (ev.dept && typeof ev.dept === 'object') ? (ev.dept[currentLang] || ev.dept['zh'] || ev.dept['en'] || '') : (ev.dept || '');
+            const descText = (ev.desc && typeof ev.desc === 'object') ? (ev.desc[currentLang] || ev.desc['zh'] || ev.desc['en'] || '') : (ev.desc || '');
+
+            document.getElementById('modalTitle').innerText = titleText;
             document.getElementById('modalDate').innerText = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
-            document.getElementById('modalDept').innerText = ev.dept[currentLang];
-            document.getElementById('modalDesc').innerText = ev.desc[currentLang];
+            document.getElementById('modalDept').innerText = deptText;
+            document.getElementById('modalDesc').innerText = descText;
             document.getElementById('modalTrackBtnText').innerText = trackedEventIds.includes(id) ? dictionary[currentLang].untrackSuccess : dictionary[currentLang].trackSuccess;
             document.getElementById('detailModal').classList.remove('hidden');
         }
@@ -1179,6 +1237,7 @@
             showToast(i > -1 ? dictionary[currentLang].untrackSuccess : dictionary[currentLang].trackSuccess);
             closeDetailModal(); 
             updateUiLanguage(); 
+            updateCategoryStars();
             renderCalendar(); 
             renderUrgentDeadlines();
         }
@@ -1251,13 +1310,17 @@
                 const nd = String(nextDay.getDate()).padStart(2, '0');
                 const nextDayClean = `${ny}${nm}${nd}`;
 
+                const titleText = (ev.title && typeof ev.title === 'object') ? (ev.title[currentLang] || ev.title['zh'] || ev.title['en'] || '') : (ev.title || '');
+                const descText = (ev.desc && typeof ev.desc === 'object') ? (ev.desc[currentLang] || ev.desc['zh'] || ev.desc['en'] || '') : (ev.desc || '');
+                const deptText = (ev.dept && typeof ev.dept === 'object') ? (ev.dept[currentLang] || ev.dept['zh'] || ev.dept['en'] || '') : (ev.dept || '');
+
                 icsContent.push("BEGIN:VEVENT");
                 icsContent.push(`UID:${ev.id}@ncu.edu.tw`);
                 icsContent.push(`DTSTAMP:${sDateClean}T000000Z`);
                 icsContent.push(`DTSTART;VALUE=DATE:${sDateClean}`);
                 icsContent.push(`DTEND;VALUE=DATE:${nextDayClean}`);
-                icsContent.push(`SUMMARY:${ev.title[currentLang].replace(/,/g, "\\,")}`);
-                icsContent.push(`DESCRIPTION:${ev.desc[currentLang].replace(/,/g, "\\,")} (發佈單位：${ev.dept[currentLang]})`);
+                icsContent.push(`SUMMARY:${titleText.replace(/,/g, "\\,")}`);
+                icsContent.push(`DESCRIPTION:${descText.replace(/,/g, "\\,")} (發佈單位：${deptText})`);
                 icsContent.push("LOCATION:國立中央大學 National Central University");
                 icsContent.push("END:VEVENT");
             });
@@ -1299,7 +1362,6 @@
             const input = document.getElementById('aiInput');
             if (input) {
                 input.value = text;
-                // 手動呼叫表單送出邏輯
                 handleSendMessage();
             }
         }
@@ -1387,7 +1449,7 @@
             return false; 
         }
 
-        // ================== 重構：修正 appendChatBubble 對話繪製崩潰 Bug ==================
+        // ================== 對話泡泡安全拼接法 ==================
         function appendChatBubble(text, sender) {
             const chatHistory = document.getElementById('aiChatHistory');
             const bubbleId = `bubble-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`; // 隨機 ID 防重複
@@ -1410,7 +1472,6 @@
 
             const bubbleHtml = `<div class="${bubbleClass}">${text}</div>`;
 
-            // 使用安全乾淨的 innerHTML 渲染字串，避免原生 appendChild(string) 崩潰
             if (sender === 'user') {
                 div.innerHTML = bubbleHtml + avatarHtml;
             } else {
@@ -1438,12 +1499,11 @@
             if (p.includes('停電') || p.includes('整修') || p.includes('施工')) intentCategory = 'admin';
             if (p.includes('假') || p.includes('節')) intentCategory = 'holiday';
 
-            // 防呆檢索，確保 undefined 不會造成系統崩潰
             let foundEvents = (campusEvents || []).filter(ev => {
-                const zhTitle = ev?.title?.zh?.toLowerCase() || "";
-                const enTitle = ev?.title?.en?.toLowerCase() || "";
-                const zhDesc = ev?.desc?.zh?.toLowerCase() || "";
-                const enDesc = ev?.desc?.en?.toLowerCase() || "";
+                const zhTitle = (ev && ev.title && typeof ev.title === 'object' && ev.title.zh) ? ev.title.zh.toLowerCase() : (ev && typeof ev.title === 'string' ? ev.title.toLowerCase() : "");
+                const enTitle = (ev && ev.title && typeof ev.title === 'object' && ev.title.en) ? ev.title.en.toLowerCase() : "";
+                const zhDesc = (ev && ev.desc && typeof ev.desc === 'object' && ev.desc.zh) ? ev.desc.zh.toLowerCase() : (ev && typeof ev.desc === 'string' ? ev.desc.toLowerCase() : "");
+                const enDesc = (ev && ev.desc && typeof ev.desc === 'object' && ev.desc.en) ? ev.desc.en.toLowerCase() : "";
                 
                 const titleMatch = zhTitle.includes(p) || enTitle.includes(p);
                 const descMatch = zhDesc.includes(p) || enDesc.includes(p);
@@ -1459,10 +1519,10 @@
                 let res = `【本地檢索結果】為您在校曆中找到以下相關資訊：<br><br>`;
                 displayEvents.forEach(ev => {
                     const dateStr = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
-                    const title = ev.title[currentLang] || ev.title.zh || "無標題";
-                    const dept = ev.dept[currentLang] || ev.dept.zh || "未知單位";
-                    res += `📅 <b>${title}</b><br>
-                            <span class="text-[10px] text-slate-500">時間：${dateStr} | 單位：${dept}</span><br><br>`;
+                    const titleText = (ev.title && typeof ev.title === 'object') ? (ev.title[currentLang] || ev.title['zh'] || ev.title['en'] || '無標題') : (ev.title || '無標題');
+                    const deptText = (ev.dept && typeof ev.dept === 'object') ? (ev.dept[currentLang] || ev.dept['zh'] || ev.dept['en'] || '未知單位') : (ev.dept || '未知單位');
+                    res += `📅 <b>${titleText}</b><br>
+                            <span class="text-[10px] text-slate-500">時間：${dateStr} | 單位：${deptText}</span><br><br>`;
                 });
                 
                 if (foundEvents.length > 3) {
@@ -1546,20 +1606,53 @@
             }
             
             updateUiLanguage();
+            updateCategoryStars();
             renderCalendar();
             renderUrgentDeadlines();
-            
-            // 綁定表單提交事件，徹底防護重整
+        }
+
+        // ================== 100% 穩健之 AI 表單提交與按鍵綁定 (徹底杜絕 HTML event 衝突) ==================
+        function setupChatListeners() {
             const chatForm = document.getElementById('aiChatForm');
+            const aiInput = document.getElementById('aiInput');
+            const aiSendBtn = document.getElementById('aiSendBtn');
+
+            // 1. 表單提交事件
             if (chatForm) {
                 chatForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    handleSendMessage(e);
+                    e.stopPropagation();
+                    handleSendMessage();
+                    return false;
+                });
+            }
+
+            // 2. 鍵盤 Enter 事件
+            if (aiInput) {
+                aiInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleSendMessage();
+                        return false;
+                    }
+                });
+            }
+
+            // 3. 紙飛機點擊事件
+            if (aiSendBtn) {
+                aiSendBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSendMessage();
+                    return false;
                 });
             }
         }
 
-        // 確保 DOM 載入後才啟動
+        // 同步執行監聽器綁定，確保毫秒級安全防護
+        setupChatListeners();
+
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', initSystem);
         } else {
