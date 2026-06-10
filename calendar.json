@@ -1,0 +1,302 @@
+[
+  {
+    "id": "ev-114-05-01",
+    "startDate": "2026-05-01",
+    "endDate": "2026-05-14",
+    "category": "enrollment",
+    "title": { "zh": "轉系、所申請及校學士計畫申請", "en": "Dept Transfer & School Bachelor Program App." },
+    "dept": { "zh": "教務處註冊組", "en": "Office of Academic Affairs - Registry" },
+    "desc": { "zh": "114-2學期轉系、所申請及校學士計畫申請(含異動)，請於期限內送件。", "en": "Application for department transfer and school bachelor programs." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-01-labor",
+    "startDate": "2026-05-01",
+    "endDate": "2026-05-01",
+    "category": "holiday",
+    "title": { "zh": "勞動節", "en": "Labor Day" },
+    "dept": { "zh": "人事室", "en": "Personnel Office" },
+    "desc": { "zh": "勞基法人員適用，勞動節放假一日。", "en": "Labor Day holiday for applicable personnel." },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-04",
+    "startDate": "2026-05-04",
+    "endDate": "2026-05-11",
+    "category": "housing",
+    "title": { "zh": "大學部學生宿舍線上申請", "en": "UG Dormitory Online Application" },
+    "dept": { "zh": "學務處住宿服務組", "en": "Student Housing Service" },
+    "desc": { "zh": "115學年度大學部宿舍線上申請，請符合資格同學準時辦理大抽籤登記。", "en": "Dormitory application period for undergraduate students for the 115th academic year." },
+    "link": "https://ncu.edu.tw/dorm"
+  },
+  {
+    "id": "ev-114-05-15-anniv",
+    "startDate": "2026-05-15",
+    "endDate": "2026-05-15",
+    "category": "activity",
+    "title": { "zh": "114學年度中央大學校慶活動日", "en": "NCU Anniversary Celebration Day" },
+    "dept": { "zh": "秘書室", "en": "Secretariat Office" },
+    "desc": { "zh": "全校校慶系列活動，包含校友返校與慶祝大會。", "en": "NCU Anniversary Celebration events and alumni homecoming." },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-18-summer",
+    "startDate": "2026-05-18",
+    "endDate": "2026-05-28",
+    "category": "course",
+    "title": { "zh": "暑修第一期登記", "en": "Summer Session Phase 1 Reg." },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "暑修第1期網路登記。請登入學生選課系統辦理。", "en": "Registration for Summer Session Phase 1." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-18-advising",
+    "startDate": "2026-05-18",
+    "endDate": "2026-06-05",
+    "category": "course",
+    "title": { "zh": "大學部導師輔導選課", "en": "Mentor-Guided Course Selection" },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "115學年度第1學期導師輔導選課，請預約導師進行選課討論。", "en": "Meet with your mentor to discuss next semester's course selection." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-18-eval",
+    "startDate": "2026-05-18",
+    "endDate": "2026-06-06",
+    "category": "grading",
+    "title": { "zh": "線上教學評量問卷填寫", "en": "Online Course Evaluation Survey" },
+    "dept": { "zh": "教務處教學發展中心", "en": "Teaching & Learning Development" },
+    "desc": { "zh": "未填寫者初選將失去優先分發排序資格，請同學踴躍填寫！", "en": "Failure to complete the survey will result in lower priority during course selection." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-18-dorm",
+    "startDate": "2026-05-18",
+    "endDate": "2026-07-31",
+    "category": "housing",
+    "title": { "zh": "研究所新生暑期借住宿舍申請", "en": "Grad Student Summer Dorm App." },
+    "dept": { "zh": "學務處住宿服務組", "en": "Student Housing Service" },
+    "desc": { "zh": "研究所新生暑期借住宿舍開放申請。", "en": "Summer dorm application opens for new graduate students." },
+    "link": "https://ncu.edu.tw/dorm"
+  },
+  {
+    "id": "ev-114-05-23-grad",
+    "startDate": "2026-05-23",
+    "endDate": "2026-05-23",
+    "category": "degree",
+    "title": { "zh": "114學年度全校畢業典禮", "en": "114th Graduation Ceremony" },
+    "dept": { "zh": "學務處課外活動組", "en": "Extracurricular Activities" },
+    "desc": { "zh": "中大114學年度畢業典禮，祝各位畢業生鵬程萬里！", "en": "NCU 114th Commencement. Congratulations to all graduates!" },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-25-waiver",
+    "startDate": "2026-05-25",
+    "endDate": "2026-07-23",
+    "category": "financial",
+    "title": { "zh": "舊生學雜費減免申請", "en": "Tuition Waiver App. (Returning Students)" },
+    "dept": { "zh": "學務處生活輔導組", "en": "Student Living Counseling" },
+    "desc": { "zh": "115學年度舊生學雜費減免申請受理時間。", "en": "Tuition waiver application period for returning students." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-29-earlygrad",
+    "startDate": "2026-05-29",
+    "endDate": "2026-05-29",
+    "category": "degree",
+    "title": { "zh": "大學部學生提前畢業申請截止", "en": "UG Early Graduation Deadline" },
+    "dept": { "zh": "教務處註冊組", "en": "Registry Division" },
+    "desc": { "zh": "欲辦理提前畢業之大學部學生，本日為最後送件日。", "en": "Final deadline for early graduation applications for undergrads." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-05-29-preselect",
+    "startDate": "2026-05-29",
+    "endDate": "2026-06-05",
+    "category": "course",
+    "title": { "zh": "115-1 學期課程初選", "en": "115-1 Course Pre-selection" },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "下學期課程初選，請登入學生選課系統排定志願。", "en": "Pre-selection phase for the upcoming semester. Setup your preferences." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-06-01-dorm",
+    "startDate": "2026-06-01",
+    "endDate": "2026-07-31",
+    "category": "housing",
+    "title": { "zh": "受理研究生放棄115學年住宿", "en": "Grad Dorm Forfeiture Application" },
+    "dept": { "zh": "學務處住宿服務組", "en": "Student Housing Service" },
+    "desc": { "zh": "若不續住，請務必於期間內辦理放棄手續。", "en": "Submit forfeiture forms if you do not plan to stay in the dorm next year." },
+    "link": "https://ncu.edu.tw/dorm"
+  },
+  {
+    "id": "ev-114-06-05-suspend",
+    "startDate": "2026-06-05",
+    "endDate": "2026-06-05",
+    "category": "enrollment",
+    "title": { "zh": "114-2學期休學申請截止", "en": "Semester Suspension Deadline" },
+    "dept": { "zh": "教務處註冊組", "en": "Registry Division" },
+    "desc": { "zh": "欲辦理休學之同學請務必於本日下班前完成送件核章。", "en": "Final day to apply for semester suspension." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-06-08-exam",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-12",
+    "category": "grading",
+    "title": { "zh": "期末成績評量週", "en": "Final Examination Week" },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "期末評量時間，具體考核方式由各任課老師自行安排。", "en": "Final exam week. Assessment methods are decided by instructors." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-06-15-summer",
+    "startDate": "2026-06-15",
+    "endDate": "2026-06-15",
+    "category": "holiday",
+    "title": { "zh": "暑假正式開始", "en": "Summer Break Begins" },
+    "dept": { "zh": "教務處", "en": "Academic Affairs" },
+    "desc": { "zh": "114-2學期結束，暑假開始囉！", "en": "End of 114-2. Enjoy your summer break!" },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-06-15-summerclass",
+    "startDate": "2026-06-15",
+    "endDate": "2026-07-17",
+    "category": "course",
+    "title": { "zh": "暑修第一期上課", "en": "Summer Session Phase 1 Lectures" },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "暑修第一期密集授課期間。", "en": "Lectures for the first cohort of summer sessions." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-06-19",
+    "startDate": "2026-06-19",
+    "endDate": "2026-06-19",
+    "category": "holiday",
+    "title": { "zh": "端午節", "en": "Dragon Boat Festival" },
+    "dept": { "zh": "人事室", "en": "Personnel Office" },
+    "desc": { "zh": "端午節國定假日，全校停課。", "en": "National holiday. Classes suspended." },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-07-02-grade",
+    "startDate": "2026-07-02",
+    "endDate": "2026-07-02",
+    "category": "grading",
+    "title": { "zh": "教師繳交學期成績截止日", "en": "Instructor Grade Submission Deadline" },
+    "dept": { "zh": "教務處註冊組", "en": "Registry Division" },
+    "desc": { "zh": "任課教師應於本日截止前完成線上成績登錄。", "en": "All instructors must submit final grades online." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-07-06-graduate",
+    "startDate": "2026-07-06",
+    "endDate": "2026-07-31",
+    "category": "degree",
+    "title": { "zh": "學士班離校手續及領取學位證書", "en": "UG Clearance & Diploma Pickup" },
+    "dept": { "zh": "教務處註冊組", "en": "Registry Division" },
+    "desc": { "zh": "請畢業生確認離校系統綠燈後至註冊組領取畢業證書。", "en": "Complete clearance to pick up your diploma." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-07-18-power",
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-19",
+    "category": "admin",
+    "title": { "zh": "東區高壓電力檢驗維護 (停電)", "en": "East Campus Power Outage" },
+    "dept": { "zh": "總務處營繕組", "en": "Construction & Maintenance" },
+    "desc": { "zh": "校區東區實施高壓電力保養，將全面斷電，請提早備份。", "en": "East campus power cut for high-voltage maintenance." },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-07-25-power",
+    "startDate": "2026-07-25",
+    "endDate": "2026-07-25",
+    "category": "admin",
+    "title": { "zh": "西區高壓電力檢驗維護 (停電)", "en": "West Campus Power Outage" },
+    "dept": { "zh": "總務處營繕組", "en": "Construction & Maintenance" },
+    "desc": { "zh": "西區（含部分宿舍）停電檢修，請注意電器安全。", "en": "West campus power cut. Dormitories affected." },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-114-07-29-defense",
+    "startDate": "2026-07-29",
+    "endDate": "2026-07-29",
+    "category": "degree",
+    "title": { "zh": "研究生口試成績繳交及離校截止", "en": "Grad Defense Grade & Clearance Deadline" },
+    "dept": { "zh": "教務處註冊組", "en": "Registry Division" },
+    "desc": { "zh": "請務必於本日完成論文成績送交與離校手續。", "en": "Final deadline to submit defense grades and complete clearance." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-115-08-28-freshman",
+    "startDate": "2026-08-28",
+    "endDate": "2026-08-29",
+    "category": "freshman",
+    "title": { "zh": "大學部新生入住日", "en": "Freshman Dorm Move-in" },
+    "dept": { "zh": "學務處住宿服務組", "en": "Student Housing Service" },
+    "desc": { "zh": "大一新生辦理入住宿舍，現場將有學長姐引導與協助。", "en": "Dormitory move-in days for undergraduate freshmen." },
+    "link": "https://ncu.edu.tw/dorm"
+  },
+  {
+    "id": "ev-115-09-02-camp",
+    "startDate": "2026-09-02",
+    "endDate": "2026-09-02",
+    "category": "freshman",
+    "title": { "zh": "大一新生營 (大禮堂)", "en": "Freshman Orientation Camp" },
+    "dept": { "zh": "學務處課外活動組", "en": "Extracurricular Activities" },
+    "desc": { "zh": "歡迎新生！新生營將於大禮堂隆重登場，請依班級入座。", "en": "Welcome event for all incoming freshmen at the Main Auditorium." },
+    "link": "https://ncu.edu.tw/"
+  },
+  {
+    "id": "ev-115-09-02-adddrop",
+    "startDate": "2026-09-02",
+    "endDate": "2026-09-16",
+    "category": "course",
+    "title": { "zh": "115-1 學期課程加退選", "en": "115-1 Course Add/Drop Period" },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "請登入系統進行正式加退選課，逾期將無法異動。", "en": "Official add/drop period. No changes allowed after the deadline." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-115-09-07-start",
+    "startDate": "2026-09-07",
+    "endDate": "2026-09-07",
+    "category": "course",
+    "title": { "zh": "全校正式開始上課", "en": "First Day of Classes" },
+    "dept": { "zh": "教務處", "en": "Academic Affairs" },
+    "desc": { "zh": "115學年度第1學期正式上課，請確認教室位置。", "en": "First day of lectures. Make sure to check your classroom numbers." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-115-10-19-withdraw",
+    "startDate": "2026-10-19",
+    "endDate": "2026-11-27",
+    "category": "course",
+    "title": { "zh": "受理課程停修申請", "en": "Course Withdrawal App." },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "如遇不可抗力需停修，請於期限內填寫申請單並送核。", "en": "Course withdrawal applications are open. Digital signatures required." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-115-10-27-midterm",
+    "startDate": "2026-10-27",
+    "endDate": "2026-10-30",
+    "category": "grading",
+    "title": { "zh": "期中成績評量週", "en": "Midterm Examination Week" },
+    "dept": { "zh": "教務處課務組", "en": "Curriculum Division" },
+    "desc": { "zh": "期中評量期間，具體考試或報告由授課教師安排。", "en": "Midterm week. Specifics arranged by course instructors." },
+    "link": "https://pdc.adm.ncu.edu.tw/"
+  },
+  {
+    "id": "ev-115-11-11-sports",
+    "startDate": "2026-11-11",
+    "endDate": "2026-11-11",
+    "category": "activity",
+    "title": { "zh": "全校運動會 (停課)", "en": "NCU Sports Day" },
+    "dept": { "zh": "體育室", "en": "Physical Education Office" },
+    "desc": { "zh": "一年一度運動會，全校日間及進修班停課。", "en": "Annual Sports Day. All classes are suspended." },
+    "link": "https://ncu.edu.tw/"
+  }
+]

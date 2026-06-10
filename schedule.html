@@ -32,27 +32,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Inter', 'Noto Serif TC', sans-serif;
-            background-color: #F6F4EF;
-        }
-        /* 美化滾動條 */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #EAE6DD;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #B8AD9A;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8F806A;
-        }
-
-        /* 介面配色優化 */
+        body { font-family: 'Inter', 'Noto Serif TC', sans-serif; background-color: #F6F4EF; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #EAE6DD; }
+        ::-webkit-scrollbar-thumb { background: #B8AD9A; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8F806A; }
         .bg-white { background-color: #FFFCF7 !important; }
         .bg-slate-50 { background-color: #F8F5EE !important; }
         .bg-slate-100 { background-color: #EFE9DF !important; }
@@ -79,7 +63,6 @@
 </head>
 <body class="min-h-screen flex flex-col text-slate-800">
 
-    <!-- 頂部導覽列 Top Bar -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-40 px-4 py-3 md:px-8 shadow-sm">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex items-center justify-between">
@@ -89,9 +72,9 @@
                     </div>
                     <div>
                         <h1 class="text-xl font-black text-ncu-purple tracking-tight flex items-center gap-2">
-                            <span id="ui-systemName">中大智慧校園行事曆</span>
+                            <span id="ui-systemName">中央大學智慧校園行事曆</span>
                         </h1>
-                        <p class="text-xs text-slate-500 font-medium">National Central University Portal</p>
+                        <p class="text-xs text-slate-500 font-medium">National Central University Calendar</p>
                     </div>
                 </div>
                 <button onclick="toggleMobileSidebar()" class="md:hidden p-2 text-slate-600 hover:text-ncu-purple focus:outline-none">
@@ -111,7 +94,6 @@
                     <i class="fa-solid fa-plus"></i>
                     <span id="ui-addEventBtn">新增日程</span>
                 </button>
-
                 <button onclick="toggleLanguage()" class="flex items-center gap-2 border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 transition-all">
                     <i class="fa-solid fa-globe text-ncu-purple"></i>
                     <span id="currentLangLabel">English</span>
@@ -120,11 +102,9 @@
         </div>
     </header>
 
-    <!-- 主應用佈局 -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 flex flex-col lg:flex-row gap-8 relative">
-        
-        <!-- 左側控制面板 Sidebar -->
         <aside id="sidebarMenu" class="hidden lg:block w-full lg:w-64 shrink-0 flex flex-col gap-6">
+            <!-- 主選單 -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                 <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-3" id="ui-navTitle">主選單</h3>
                 <nav class="space-y-1">
@@ -144,6 +124,7 @@
                 </nav>
             </div>
 
+            <!-- Google / Apple 行事曆架接 -->
             <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-5 rounded-2xl border border-indigo-100 shadow-sm">
                 <h4 class="text-xs font-black text-indigo-900 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                     <i class="fa-solid fa-circle-nodes text-ncu-purple"></i>
@@ -158,87 +139,149 @@
                 </button>
             </div>
 
-            <!-- 全新 10 大官方分類篩選器 -->
+            <!-- 11 大官方分類篩選器 -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase" id="ui-filterTitle">日程分類篩選</h3>
                     <button onclick="clearFilters()" class="text-xs text-ncu-purple hover:underline font-bold" id="ui-clearFilterBtn">全部清除</button>
                 </div>
-                <div class="space-y-2">
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
-                            <span class="w-3.5 h-3.5 rounded-full bg-violet-500 ring-4 ring-violet-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catEnrollment">1. 學籍與註冊</span>
+                <div class="space-y-3 max-h-[320px] overflow-y-auto pr-2">
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-enrollment" class="flex items-center gap-2.5 cursor-pointer flex-1">
+                            <span class="w-3.5 h-3.5 rounded-full bg-purple-500 ring-4 ring-purple-500/10"></span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catEnrollment">學籍與註冊</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('enrollment')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-enrollment" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-enrollment" checked value="enrollment" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="enrollment" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-course" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-blue-500 ring-4 ring-blue-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catCourse">2. 選課與修課</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catCourse">選課與修課</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('course')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-course" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-course" checked value="course" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="course" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-degree" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-indigo-500 ring-4 ring-indigo-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catDegree">3. 學位與畢業</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catDegree">學位與畢業</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('degree')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-degree" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-degree" checked value="degree" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="degree" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-grading" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-cyan-500 ring-4 ring-cyan-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catGrading">4. 成績與評量</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catGrading">成績與評量</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('grading')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-grading" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-grading" checked value="grading" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="grading" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-freshman" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-teal-500 ring-4 ring-teal-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catFreshman">5. 新生事務</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catFreshman">新生事務</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('freshman')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-freshman" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-freshman" checked value="freshman" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="freshman" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-housing" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-amber-500 ring-4 ring-amber-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catHousing">6. 住宿服務</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catHousing">住宿服務</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('housing')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-housing" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-housing" checked value="housing" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="housing" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-financial" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-orange-500 ring-4 ring-orange-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catFinancial">7. 就學補助</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catFinancial">就學補助</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('financial')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-financial" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-financial" checked value="financial" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="financial" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-activity" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catActivity">8. 校園活動</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catActivity">校園活動</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('activity')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-activity" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-activity" checked value="activity" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="activity" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-admin" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-rose-500 ring-4 ring-rose-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catAdmin">9. 校務行政</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catAdmin">校務行政</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('admin')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-admin" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-admin" checked value="admin" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="admin" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer group p-1">
-                        <div class="flex items-center gap-2.5">
+                    </div>
+                    <div class="flex items-center justify-between group p-1">
+                        <label for="cb-holiday" class="flex items-center gap-2.5 cursor-pointer flex-1">
                             <span class="w-3.5 h-3.5 rounded-full bg-pink-500 ring-4 ring-pink-500/10"></span>
-                            <span class="text-xs font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catHoliday">10. 假期與節日</span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catHoliday">假期與節日</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('holiday')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-holiday" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-holiday" checked value="holiday" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
                         </div>
-                        <input type="checkbox" checked value="holiday" onchange="filterEvents()" class="filter-checkbox w-4 h-4 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
-                    </label>
+                    </div>
+                    <div class="flex items-center justify-between group p-1 pt-3 border-t border-slate-100 mt-2">
+                        <label for="cb-personal" class="flex items-center gap-2.5 cursor-pointer flex-1">
+                            <span class="w-3.5 h-3.5 rounded-full bg-slate-500 ring-4 ring-slate-500/10"></span>
+                            <span class="text-sm font-bold text-slate-700 group-hover:text-ncu-purple transition-colors" id="ui-catPersonal">個人事項</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleTrackCategory('personal')" class="transition-colors outline-none" title="一鍵追蹤/取消此分類">
+                                <i id="star-cat-personal" class="fa-regular fa-star text-slate-300 hover:text-ncu-gold"></i>
+                            </button>
+                            <input type="checkbox" id="cb-personal" checked value="personal" onchange="filterEvents()" class="filter-checkbox w-4.5 h-4.5 text-ncu-purple rounded border-slate-300 focus:ring-ncu-purple">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 近期重要時程 -->
+            <!-- 近期重要時程 (前一週到後一個月) -->
             <div class="bg-gradient-to-br from-purple-950 to-indigo-900 text-white p-5 rounded-2xl border border-purple-800 shadow-md relative overflow-hidden">
                 <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-ncu-gold/10 rounded-full blur-xl"></div>
                 <h4 class="text-sm font-black text-ncu-gold mb-2 flex items-center gap-1.5">
@@ -246,27 +289,23 @@
                     <span id="ui-deadlinesTitle">近期重要時程</span>
                 </h4>
                 <p class="text-xs text-purple-200 leading-relaxed mb-3" id="ui-deadlinesDesc">即將截止的校務與申請事項！</p>
-                <div id="urgentContainer" class="space-y-2 max-h-[140px] overflow-y-auto pr-1">
-                    <!-- 動態載入即將截止的提醒項目 -->
-                </div>
+                <div id="urgentContainer" class="space-y-2 max-h-[140px] overflow-y-auto pr-1"></div>
             </div>
         </aside>
 
-        <!-- 中間核心視窗 Calendar View / Main Area -->
+        <!-- 中間核心視窗 -->
         <section class="flex-1 flex flex-col gap-6">
             <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
                     <button onclick="adjustMonth(-1)" class="w-9 h-9 flex items-center justify-center border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition-all">
                         <i class="fa-solid fa-chevron-left"></i>
                     </button>
-                    <!-- 直觀的載入預設字，一秒內會被 JS 替換為實際月份 -->
                     <h2 id="calendarMonthTitle" class="text-lg font-extrabold text-slate-800 min-w-[120px] text-center">載入中...</h2>
                     <button onclick="adjustMonth(1)" class="w-9 h-9 flex items-center justify-center border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition-all">
                         <i class="fa-solid fa-chevron-right"></i>
                     </button>
                     <button onclick="resetToCurrentMonth()" class="text-xs text-ncu-purple hover:underline font-bold" id="ui-todayBtn">回到今日</button>
                 </div>
-                <!-- 視圖模式轉換 -->
                 <div class="bg-slate-100 p-1 rounded-xl flex items-center">
                     <button onclick="switchView('grid')" id="viewBtn-grid" class="flex items-center gap-1 px-4 py-1.5 rounded-lg text-xs font-bold transition-all bg-white text-ncu-purple shadow-sm">
                         <i class="fa-solid fa-border-all"></i>
@@ -278,12 +317,9 @@
                     </button>
                 </div>
             </div>
-
-            <!-- 校園行事曆主體容器 -->
-            <div id="calendarDisplayArea" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden min-h-[500px] flex flex-col">
-                <!-- 動態生成的月曆或清單會注入於此 -->
-            </div>
+            <div id="calendarDisplayArea" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden min-h-[500px] flex flex-col"></div>
         </section>
+
     </main>
 
     <!-- 浮動 AI 助理面板 -->
@@ -318,17 +354,17 @@
                         <i class="fa-solid fa-robot text-xs"></i>
                     </div>
                     <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 shadow-sm max-w-[85%]">
-                        <p class="text-slate-800 leading-relaxed text-xs md:text-sm" id="ui-aiWelcomeMsg">哈囉！目前行事曆已清空準備接收 JSON 數據，有任何問題隨時問我！</p>
+                        <p class="text-slate-800 leading-relaxed text-xs md:text-sm" id="ui-aiWelcomeMsg">哈囉！目前系統已準備好接收外部 JSON 行事曆資料，有任何問題隨時問我！</p>
                     </div>
                 </div>
             </div>
 
             <div class="p-2 border-t border-slate-100 flex gap-2 overflow-x-auto whitespace-nowrap bg-white text-xs">
-                <button id="ui-chipPower" onclick="askQuickQuestion('學校什麼時候會停電？')" class="bg-slate-100 hover:bg-ncu-lightPurple hover:text-ncu-purple px-2.5 py-1 rounded-full text-slate-600 transition-colors shrink-0">學校停電時間？</button>
-                <button id="ui-chipDorm" onclick="askQuickQuestion('第2學期宿舍申請是哪時候？')" class="bg-slate-100 hover:bg-ncu-lightPurple hover:text-ncu-purple px-2.5 py-1 rounded-full text-slate-600 transition-colors shrink-0">2學期宿舍申請？</button>
+                <button type="button" id="ui-chipPower" onclick="askQuickQuestion(currentLang === 'zh' ? '學校什麼時候會停電？' : 'When will there be a campus power outage?')" class="bg-slate-100 hover:bg-ncu-lightPurple hover:text-ncu-purple px-2.5 py-1 rounded-full text-slate-600 transition-colors shrink-0">學校停電時間？</button>
+                <button type="button" id="ui-chipDorm" onclick="askQuickQuestion(currentLang === 'zh' ? '第2學期宿舍申請是哪時候？' : 'When is the dorm application for next semester?')" class="bg-slate-100 hover:bg-ncu-lightPurple hover:text-ncu-purple px-2.5 py-1 rounded-full text-slate-600 transition-colors shrink-0">2學期宿舍申請？</button>
             </div>
 
-            <form onsubmit="handleSendMessage(event)" class="border-t border-slate-200 p-3 bg-white flex items-center gap-2">
+            <form id="aiChatForm" class="border-t border-slate-200 p-3 bg-white flex items-center gap-2">
                 <input type="text" id="aiInput" class="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-ncu-purple focus:border-transparent transition-all" placeholder="請輸入您的問題...">
                 <button type="submit" class="w-9 h-9 bg-ncu-purple hover:bg-ncu-purpleHover text-white rounded-xl flex items-center justify-center transition-colors">
                     <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -406,29 +442,19 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block font-bold mb-1.5" id="ui-formCat">所屬分類</label>
-                        <div class="flex gap-2">
-                            <select id="formCategory" class="flex-1 border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-ncu-purple">
-                                <option value="enrollment">1. 學籍與註冊</option>
-                                <option value="course">2. 選課與修課</option>
-                                <option value="degree">3. 學位與畢業</option>
-                                <option value="grading">4. 成績與評量</option>
-                                <option value="freshman">5. 新生事務</option>
-                                <option value="housing">6. 住宿服務</option>
-                                <option value="financial">7. 就學補助</option>
-                                <option value="activity">8. 校園活動</option>
-                                <option value="admin">9. 校務行政</option>
-                                <option value="holiday">10. 假期與節日</option>
-                            </select>
-                            <button type="button" onclick="toggleCustomCategoryInput()" class="px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-ncu-purple rounded-xl text-xs font-bold transition-all" id="ui-addCategoryBtn">
-                                新增
-                            </button>
-                        </div>
-                        <div id="customCategoryBox" class="hidden mt-2 flex gap-2">
-                            <input type="text" id="customCategoryInput" class="flex-1 border border-slate-200 rounded-xl p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-ncu-purple">
-                            <button type="button" onclick="addCustomCategory()" class="px-3 py-2.5 bg-ncu-purple hover:bg-ncu-purpleHover text-white rounded-xl text-xs font-bold transition-all" id="ui-addCategoryConfirmBtn">
-                                加入
-                            </button>
-                        </div>
+                        <select id="formCategory" class="w-full border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-ncu-purple">
+                            <option value="enrollment">學籍與註冊</option>
+                            <option value="course">選課與修課</option>
+                            <option value="degree">學位與畢業</option>
+                            <option value="grading">成績與評量</option>
+                            <option value="freshman">新生事務</option>
+                            <option value="housing">住宿服務</option>
+                            <option value="financial">就學補助</option>
+                            <option value="activity">校園活動</option>
+                            <option value="admin">校務行政</option>
+                            <option value="holiday">假期與節日</option>
+                            <option value="personal">個人事項</option>
+                        </select>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
@@ -443,11 +469,11 @@
                 </div>
                 <div>
                     <label class="block font-bold mb-1.5" id="ui-formDept">提醒備註</label>
-                    <input type="text" id="formDept" required class="w-full border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-ncu-purple" placeholder="">
+                    <input type="text" id="formDept" class="w-full border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-ncu-purple" placeholder="選填">
                 </div>
                 <div>
                     <label class="block font-bold mb-1.5" id="ui-formDesc">日程說明</label>
-                    <textarea id="formDesc" rows="3" required class="w-full border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-ncu-purple" placeholder=""></textarea>
+                    <textarea id="formDesc" rows="3" class="w-full border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-ncu-purple" placeholder="選填"></textarea>
                 </div>
                 <div class="flex items-center gap-3 pt-4 border-t border-slate-100 justify-end">
                     <button type="button" onclick="closeAdminModal()" class="px-5 py-2.5 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-bold" id="ui-btnCancel">取消</button>
@@ -495,7 +521,7 @@
         </div>
     </div>
 
-    <!-- API Key Input -->
+    <!-- Gemini API Key 輸入 Modal -->
     <div id="apiKeyModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl border border-slate-100">
             <div class="bg-slate-950 text-white p-4 flex items-center justify-between">
@@ -527,9 +553,6 @@
         <span id="toastMessage">提示訊息</span>
     </div>
 
-    <!-- 隱藏區塊：保留 Tailwind 編譯掃描使用，確保 10 大分類色彩皆可正確渲染 -->
-    <div class="hidden bg-violet-500 text-white border-violet-600 bg-violet-50 text-violet-700 text-violet-800 border-violet-200 bg-violet-100 bg-blue-500 border-blue-600 bg-blue-50 text-blue-700 text-blue-800 border-blue-200 bg-blue-100 bg-indigo-500 border-indigo-600 bg-indigo-50 text-indigo-700 text-indigo-800 border-indigo-200 bg-indigo-100 bg-cyan-500 border-cyan-600 bg-cyan-50 text-cyan-700 text-cyan-800 border-cyan-200 bg-cyan-100 bg-teal-500 border-teal-600 bg-teal-50 text-teal-700 text-teal-800 border-teal-200 bg-teal-100 bg-amber-500 border-amber-600 bg-amber-50 text-amber-700 text-amber-800 border-amber-200 bg-amber-100 bg-orange-500 border-orange-600 bg-orange-50 text-orange-700 text-orange-800 border-orange-200 bg-orange-100 bg-emerald-500 border-emerald-600 bg-emerald-50 text-emerald-700 text-emerald-800 border-emerald-200 bg-emerald-100 bg-rose-500 border-rose-600 bg-rose-50 text-rose-700 text-rose-800 border-rose-200 bg-rose-100 bg-pink-500 border-pink-600 bg-pink-50 text-pink-700 text-pink-800 border-pink-200 bg-pink-100"></div>
-
     <!-- JavaScript 邏輯控制 -->
     <script>
         let apiKey = localStorage.getItem('ncu_gemini_key') || "";
@@ -543,7 +566,7 @@
 
         const dictionary = {
             zh: {
-                systemName: "中大智慧校園行事曆",
+                systemName: "中央大學智慧校園行事曆",
                 searchPlaceholder: "搜尋日程、承辦單位或直接對右下角 AI 提問...",
                 addEventBtn: "新增日程",
                 navTitle: "主選單",
@@ -551,26 +574,24 @@
                 navTracked: "我的追蹤日程",
                 filterTitle: "日程分類篩選",
                 clearFilterBtn: "全部清除",
-                
-                // 10大官方分類
-                catEnrollment: "1. 學籍與註冊",
-                catCourse: "2. 選課與修課",
-                catDegree: "3. 學位與畢業",
-                catGrading: "4. 成績與評量",
-                catFreshman: "5. 新生事務",
-                catHousing: "6. 住宿服務",
-                catFinancial: "7. 就學補助",
-                catActivity: "8. 校園活動",
-                catAdmin: "9. 校務行政",
-                catHoliday: "10. 假期與節日",
-
+                catEnrollment: "學籍與註冊",
+                catCourse: "選課與修課",
+                catDegree: "學位與畢業",
+                catGrading: "成績與評量",
+                catFreshman: "新生事務",
+                catHousing: "住宿服務",
+                catFinancial: "就學補助",
+                catActivity: "校園活動",
+                catAdmin: "校務行政",
+                catHoliday: "假期與節日",
+                catPersonal: "個人事項",
                 deadlinesTitle: "近期重要時程",
                 deadlinesDesc: "即將截止的校務與申請事項！",
                 todayBtn: "回到今日",
                 viewGrid: "月曆模式",
                 viewList: "清單模式",
                 aiTitle: "NCU 智慧學園秘書",
-                aiWelcomeMsg: "哈囉！目前行事曆已清空準備接收 JSON 數據，有任何問題隨時問我！",
+                aiWelcomeMsg: "哈囉！目前系統已準備好接收外部 JSON 行事曆資料，有任何問題隨時問我！",
                 aiBubbleBtn: "問問智慧校園秘書！",
                 adminModalTitle: "新增個人日程",
                 formTitle: "日程標題",
@@ -578,8 +599,6 @@
                 formTitleEn: "日程標題 (英文)",
                 startDate: "開始日期",
                 endDate: "結束日期",
-                addCategoryBtn: "新增",
-                addCategoryConfirmBtn: "加入",
                 syncModalTitle: "行事曆同步與架接設定",
                 syncModalDesc: "本行事曆系統符合全球通用的 <strong class=\"text-ncu-purple\">iCalendar (ICS)</strong> 標準，可以將您收藏追蹤的事項匯入您的個人行動裝置！",
                 syncStepsTitle: "架接步驟說明：",
@@ -598,7 +617,7 @@
                 chipGraduation: "畢業典禮時間？",
                 exportTrackedEmpty: "您目前尚未追蹤任何日程項目，無法匯出喔！",
                 exportTrackedSuccess: "已成功產生追蹤日程之 ICS 檔！打開 Google/Apple 行事曆匯入即可。",
-                exportAllSuccess: "已成功產生全校 114-115 學年度全日行事曆 ICS 檔！",
+                exportAllSuccess: "已成功產生全校全日行事曆 ICS 檔！",
                 apiSaved: "Gemini 2.5 API Key 已儲存！",
                 apiCleared: "API Key 已清除。",
                 formDate: "日期",
@@ -606,11 +625,14 @@
                 formDesc: "日程說明",
                 btnCancel: "取消",
                 btnSubmit: "新增日程",
-                noEventsMsg: "當前無任何校園日程，請點擊「新增日程」或等候 JSON 匯入。",
+                noEventsMsg: "當前無任何校園日程，請點擊「新增日程」或等候系統匯入。",
                 weekDays: ["日", "一", "二", "三", "四", "五", "六"],
                 trackSuccess: "已成功加入追蹤清單！",
                 untrackSuccess: "已從追蹤清單中移除！",
-                publishSuccess: "日程新增成功！已加入你的行事曆。"
+                publishSuccess: "日程新增成功！已加入你的行事曆。",
+                trackCatSuccess: "已追蹤此分類全部日程！",
+                untrackCatSuccess: "已取消追蹤此分類！",
+                catEmpty: "此分類目前無任何日程"
             },
             en: {
                 systemName: "NCU Smart Calendar",
@@ -621,18 +643,17 @@
                 navTracked: "My Tracked Events",
                 filterTitle: "Categories",
                 clearFilterBtn: "Clear All",
-
-                catEnrollment: "1. Enrollment & Reg.",
-                catCourse: "2. Course Selection",
-                catDegree: "3. Degree & Grad.",
-                catGrading: "4. Grading & Assess.",
-                catFreshman: "5. Freshman Affairs",
-                catHousing: "6. Housing Services",
-                catFinancial: "7. Financial Aid",
-                catActivity: "8. Campus Events",
-                catAdmin: "9. Campus Admin",
-                catHoliday: "10. Holidays",
-
+                catEnrollment: "Enrollment",
+                catCourse: "Courses",
+                catDegree: "Degree & Graduation",
+                catGrading: "Grading",
+                catFreshman: "Freshman Affairs",
+                catHousing: "Housing",
+                catFinancial: "Financial Aid",
+                catActivity: "Activities",
+                catAdmin: "Administration",
+                catHoliday: "Holidays",
+                catPersonal: "Personal Events",
                 deadlinesTitle: "Upcoming Dates",
                 deadlinesDesc: "Keep track of deadlines.",
                 todayBtn: "Today",
@@ -677,68 +698,17 @@
                 weekDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
                 trackSuccess: "Tracked!",
                 untrackSuccess: "Untracked!",
-                publishSuccess: "Added successfully!"
+                publishSuccess: "Added successfully!",
+                trackCatSuccess: "Tracked all events in category!",
+                untrackCatSuccess: "Untracked all events in category!",
+                catEmpty: "No events in this category"
             }
         };
 
-        // 建立跨日測試事件 (展示用)
-        const todayForMock = new Date();
-        const yyyyM = todayForMock.getFullYear();
-        const mmM = String(todayForMock.getMonth() + 1).padStart(2, '0');
-        const ddM = String(todayForMock.getDate()).padStart(2, '0');
-        const todayStrMock = `${yyyyM}-${mmM}-${ddM}`;
-        
-        const tmrForMock = new Date(todayForMock);
-        tmrForMock.setDate(tmrForMock.getDate() + 2); 
-        const tm_mm = String(tmrForMock.getMonth() + 1).padStart(2, '0');
-        const tm_dd = String(tmrForMock.getDate()).padStart(2, '0');
-        const endStrMock = `${tmrForMock.getFullYear()}-${tm_mm}-${tm_dd}`;
-
-        let campusEvents = [
-            {
-                id: "ev-test-01",
-                startDate: todayStrMock,
-                endDate: endStrMock,
-                category: "course", // 使用新的分類 ID
-                title: { zh: "動態跨日測試事件 (稍後清除)", en: "Dynamic Spanning Test Event" },
-                dept: { zh: "系統測試", en: "System Test" },
-                desc: { zh: "這是一條自動抓取「今日」到「後天」的測試資料，以確保跨日長條渲染正常。接下來就能匯入您的 JSON！", en: "Test spanning event." },
-                link: "#"
-            }
-        ];
-
-        let trackedEventIds = ["ev-test-01"];
+        let campusEvents = [];
+        let trackedEventIds = [];
         let tempSelectedEventId = null; 
 
-        // ================== 分類色彩樣式產生器 ==================
-        function getCategoryStyle(category) {
-            const styles = {
-                'enrollment': { solid: 'bg-violet-500 text-white border-violet-600', light: 'bg-violet-50 text-violet-700 border-violet-200', badge: 'bg-violet-100 text-violet-800', hex: '#8B5CF6' },
-                'course': { solid: 'bg-blue-500 text-white border-blue-600', light: 'bg-blue-50 text-blue-700 border-blue-200', badge: 'bg-blue-100 text-blue-800', hex: '#3B82F6' },
-                'degree': { solid: 'bg-indigo-500 text-white border-indigo-600', light: 'bg-indigo-50 text-indigo-700 border-indigo-200', badge: 'bg-indigo-100 text-indigo-800', hex: '#6366F1' },
-                'grading': { solid: 'bg-cyan-500 text-white border-cyan-600', light: 'bg-cyan-50 text-cyan-700 border-cyan-200', badge: 'bg-cyan-100 text-cyan-800', hex: '#06B6D4' },
-                'freshman': { solid: 'bg-teal-500 text-white border-teal-600', light: 'bg-teal-50 text-teal-700 border-teal-200', badge: 'bg-teal-100 text-teal-800', hex: '#14B8A6' },
-                'housing': { solid: 'bg-amber-500 text-white border-amber-600', light: 'bg-amber-50 text-amber-700 border-amber-200', badge: 'bg-amber-100 text-amber-800', hex: '#F59E0B' },
-                'financial': { solid: 'bg-orange-500 text-white border-orange-600', light: 'bg-orange-50 text-orange-700 border-orange-200', badge: 'bg-orange-100 text-orange-800', hex: '#F97316' },
-                'activity': { solid: 'bg-emerald-500 text-white border-emerald-600', light: 'bg-emerald-50 text-emerald-700 border-emerald-200', badge: 'bg-emerald-100 text-emerald-800', hex: '#10B981' },
-                'admin': { solid: 'bg-rose-500 text-white border-rose-600', light: 'bg-rose-50 text-rose-700 border-rose-200', badge: 'bg-rose-100 text-rose-800', hex: '#F43F5E' },
-                'holiday': { solid: 'bg-pink-500 text-white border-pink-600', light: 'bg-pink-50 text-pink-700 border-pink-200', badge: 'bg-pink-100 text-pink-800', hex: '#EC4899' },
-            };
-            return styles[category] || { solid: 'bg-slate-500 text-white border-slate-600', light: 'bg-slate-50 text-slate-700 border-slate-200', badge: 'bg-slate-100 text-slate-800', hex: '#64748B' };
-        }
-
-        function getCategoryName(category, customName = null) {
-            const keyMap = {
-                'enrollment': 'catEnrollment', 'course': 'catCourse', 'degree': 'catDegree',
-                'grading': 'catGrading', 'freshman': 'catFreshman', 'housing': 'catHousing',
-                'financial': 'catFinancial', 'activity': 'catActivity', 'admin': 'catAdmin',
-                'holiday': 'catHoliday'
-            };
-            return keyMap[category] ? dictionary[currentLang][keyMap[category]] : (customName || "自訂分類");
-        }
-
-
-        // 吐司提示
         function showToast(message, type = "success") {
             const toast = document.getElementById("toast");
             document.getElementById("toastMessage").innerText = message;
@@ -775,7 +745,6 @@
             document.getElementById('ui-filterTitle').innerText = t.filterTitle;
             document.getElementById('ui-clearFilterBtn').innerText = t.clearFilterBtn;
             
-            // Sidebar Category Labels
             document.getElementById('ui-catEnrollment').innerText = t.catEnrollment;
             document.getElementById('ui-catCourse').innerText = t.catCourse;
             document.getElementById('ui-catDegree').innerText = t.catDegree;
@@ -786,6 +755,7 @@
             document.getElementById('ui-catActivity').innerText = t.catActivity;
             document.getElementById('ui-catAdmin').innerText = t.catAdmin;
             document.getElementById('ui-catHoliday').innerText = t.catHoliday;
+            document.getElementById('ui-catPersonal').innerText = t.catPersonal;
 
             document.getElementById('ui-deadlinesTitle').innerText = t.deadlinesTitle;
             document.getElementById('ui-deadlinesDesc').innerText = t.deadlinesDesc;
@@ -804,27 +774,26 @@
             document.getElementById('ui-btnCancel').innerText = t.btnCancel;
             document.getElementById('ui-btnSubmit').innerText = t.btnSubmit;
 
-            // Form Select Options
-            const formCatSelect = document.getElementById('formCategory');
-            formCatSelect.options[0].text = t.catEnrollment;
-            formCatSelect.options[1].text = t.catCourse;
-            formCatSelect.options[2].text = t.catDegree;
-            formCatSelect.options[3].text = t.catGrading;
-            formCatSelect.options[4].text = t.catFreshman;
-            formCatSelect.options[5].text = t.catHousing;
-            formCatSelect.options[6].text = t.catFinancial;
-            formCatSelect.options[7].text = t.catActivity;
-            formCatSelect.options[8].text = t.catAdmin;
-            formCatSelect.options[9].text = t.catHoliday;
-
             const optionalTextIds = {
-                'ui-formTitleEn': t.formTitleEn, 'ui-startDate': t.startDate, 'ui-endDate': t.endDate,
-                'ui-syncModalTitle': t.syncModalTitle, 'ui-syncModalDesc': t.syncModalDesc,
-                'ui-syncStepsTitle': t.syncStepsTitle, 'ui-syncStep1': t.syncStep1, 'ui-syncStep2': t.syncStep2,
-                'ui-syncStep3': t.syncStep3, 'ui-exportTrackedBtn': t.exportTrackedBtn, 'ui-exportAllBtn': t.exportAllBtn,
-                'ui-apiModalTitle': t.apiModalTitle, 'ui-apiModalDesc': t.apiModalDesc, 'ui-apiKeyLabel': t.apiKeyLabel,
-                'ui-apiCancelBtn': t.apiCancelBtn, 'ui-apiSaveBtn': t.apiSaveBtn, 'ui-chipPower': t.chipPower,
-                'ui-chipDorm': t.chipDorm, 'ui-chipGraduation': t.chipGraduation
+                'ui-formTitleEn': t.formTitleEn,
+                'ui-startDate': t.startDate,
+                'ui-endDate': t.endDate,
+                'ui-syncModalTitle': t.syncModalTitle,
+                'ui-syncModalDesc': t.syncModalDesc,
+                'ui-syncStepsTitle': t.syncStepsTitle,
+                'ui-syncStep1': t.syncStep1,
+                'ui-syncStep2': t.syncStep2,
+                'ui-syncStep3': t.syncStep3,
+                'ui-exportTrackedBtn': t.exportTrackedBtn,
+                'ui-exportAllBtn': t.exportAllBtn,
+                'ui-apiModalTitle': t.apiModalTitle,
+                'ui-apiModalDesc': t.apiModalDesc,
+                'ui-apiKeyLabel': t.apiKeyLabel,
+                'ui-apiCancelBtn': t.apiCancelBtn,
+                'ui-apiSaveBtn': t.apiSaveBtn,
+                'ui-chipPower': t.chipPower,
+                'ui-chipDorm': t.chipDorm,
+                'ui-chipGraduation': t.chipGraduation
             };
 
             Object.entries(optionalTextIds).forEach(([id, value]) => {
@@ -884,13 +853,21 @@
 
         function getFilteredEvents() {
             const checkedBoxes = Array.from(document.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
-            return campusEvents.filter(ev => {
-                if (ev.category && !ev.category.startsWith('custom-') && !checkedBoxes.includes(ev.category)) return false;
+            return (campusEvents || []).filter(ev => {
+                if (ev.category && !checkedBoxes.includes(ev.category)) return false;
                 if (searchQuery) {
                     const q = searchQuery.toLowerCase();
-                    const titleMatch = ev.title[currentLang].toLowerCase().includes(q);
-                    const deptMatch = ev.dept[currentLang].toLowerCase().includes(q);
-                    const descMatch = ev.desc[currentLang].toLowerCase().includes(q);
+                    const zhTitle = (ev.title && ev.title.zh) ? ev.title.zh.toLowerCase() : "";
+                    const enTitle = (ev.title && ev.title.en) ? ev.title.en.toLowerCase() : "";
+                    const zhDept = (ev.dept && ev.dept.zh) ? ev.dept.zh.toLowerCase() : "";
+                    const enDept = (ev.dept && ev.dept.en) ? ev.dept.en.toLowerCase() : "";
+                    const zhDesc = (ev.desc && ev.desc.zh) ? ev.desc.zh.toLowerCase() : "";
+                    const enDesc = (ev.desc && ev.desc.en) ? ev.desc.en.toLowerCase() : "";
+
+                    const titleMatch = zhTitle.includes(q) || enTitle.includes(q);
+                    const deptMatch = zhDept.includes(q) || enDept.includes(q);
+                    const descMatch = zhDesc.includes(q) || enDesc.includes(q);
+                    
                     if (!titleMatch && !deptMatch && !descMatch) return false;
                 }
                 if (currentTab === 'tracked' && !trackedEventIds.includes(ev.id)) return false;
@@ -905,6 +882,86 @@
             showToast(currentLang === 'zh' ? "篩選已清空" : "Filters cleared", "warning");
         }
         function handleSearch() { searchQuery = document.getElementById('searchInput').value; renderCalendar(); }
+
+        // ================= 色彩與樣式統一管理引擎 =================
+        function getCategoryStyle(category) {
+            const styles = {
+                enrollment: { nameObj: 'catEnrollment', pill: 'bg-purple-600 text-white border-purple-700', badge: 'bg-purple-100 text-purple-800', hex: '#9333EA', cell: 'bg-purple-50 text-purple-700 border-purple-200' },
+                course:     { nameObj: 'catCourse', pill: 'bg-blue-600 text-white border-blue-700', badge: 'bg-blue-100 text-blue-800', hex: '#2563EB', cell: 'bg-blue-50 text-blue-700 border-blue-200' },
+                degree:     { nameObj: 'catDegree', pill: 'bg-indigo-600 text-white border-indigo-700', badge: 'bg-indigo-100 text-indigo-800', hex: '#4F46E5', cell: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+                grading:    { nameObj: 'catGrading', pill: 'bg-cyan-600 text-white border-cyan-700', badge: 'bg-cyan-100 text-cyan-800', hex: '#0891B2', cell: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+                freshman:   { nameObj: 'catFreshman', pill: 'bg-teal-600 text-white border-teal-700', badge: 'bg-teal-100 text-teal-800', hex: '#0D9488', cell: 'bg-teal-50 text-teal-700 border-teal-200' },
+                housing:    { nameObj: 'catHousing', pill: 'bg-amber-500 text-white border-amber-600', badge: 'bg-amber-100 text-amber-800', hex: '#F59E0B', cell: 'bg-amber-50 text-amber-800 border-amber-200' },
+                financial:  { nameObj: 'catFinancial', pill: 'bg-orange-500 text-white border-orange-600', badge: 'bg-orange-100 text-orange-800', hex: '#F97316', cell: 'bg-orange-50 text-orange-700 border-orange-200' },
+                activity:   { nameObj: 'catActivity', pill: 'bg-emerald-600 text-white border-emerald-700', badge: 'bg-emerald-100 text-emerald-800', hex: '#059669', cell: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
+                admin:      { nameObj: 'catAdmin', pill: 'bg-rose-500 text-white border-rose-600', badge: 'bg-rose-100 text-rose-800', hex: '#E11D48', cell: 'bg-rose-50 text-rose-800 border-rose-200' },
+                holiday:    { nameObj: 'catHoliday', pill: 'bg-pink-500 text-white border-pink-600', badge: 'bg-pink-100 text-pink-800', hex: '#EC4899', cell: 'bg-pink-50 text-pink-700 border-pink-200' },
+                personal:   { nameObj: 'catPersonal', pill: 'bg-slate-600 text-white border-slate-700', badge: 'bg-slate-100 text-slate-800', hex: '#475569', cell: 'bg-slate-50 text-slate-700 border-slate-200' }
+            };
+            const s = styles[category] || styles.personal;
+            return {
+                name: dictionary[currentLang][s.nameObj],
+                pillClass: s.pill,
+                badgeClass: s.badge,
+                hex: s.hex,
+                cellClass: s.cell
+            };
+        }
+
+        // ================= 一鍵分類追蹤功能 =================
+        function toggleTrackCategory(category) {
+            const catEvents = (campusEvents || []).filter(ev => ev.category === category);
+            if (catEvents.length === 0) {
+                showToast(dictionary[currentLang].catEmpty, "warning");
+                return;
+            }
+
+            const catEventIds = catEvents.map(ev => ev.id);
+            const allTracked = catEventIds.every(id => trackedEventIds.includes(id));
+
+            if (allTracked) {
+                trackedEventIds = trackedEventIds.filter(id => !catEventIds.includes(id));
+                showToast(dictionary[currentLang].untrackCatSuccess, "warning");
+            } else {
+                catEventIds.forEach(id => {
+                    if (!trackedEventIds.includes(id)) {
+                        trackedEventIds.push(id);
+                    }
+                });
+                showToast(dictionary[currentLang].trackCatSuccess, "success");
+            }
+
+            document.getElementById('trackedBadgeCount').innerText = trackedEventIds.length;
+            updateCategoryStars();
+            renderCalendar();
+            renderUrgentDeadlines();
+        }
+
+        function updateCategoryStars() {
+            const categories = ['enrollment', 'course', 'degree', 'grading', 'freshman', 'housing', 'financial', 'activity', 'admin', 'holiday', 'personal'];
+            categories.forEach(cat => {
+                const starIcon = document.getElementById(`star-cat-${cat}`);
+                if (!starIcon) return;
+
+                const catEvents = (campusEvents || []).filter(ev => ev.category === cat);
+                if (catEvents.length === 0) {
+                    starIcon.className = "fa-regular fa-star text-slate-300 opacity-30";
+                    return;
+                }
+
+                const catEventIds = catEvents.map(ev => ev.id);
+                const allTracked = catEventIds.every(id => trackedEventIds.includes(id));
+                const someTracked = catEventIds.some(id => trackedEventIds.includes(id));
+
+                if (allTracked) {
+                    starIcon.className = "fa-solid fa-star text-ncu-gold drop-shadow-sm";
+                } else if (someTracked) {
+                    starIcon.className = "fa-solid fa-star-half-stroke text-ncu-gold";
+                } else {
+                    starIcon.className = "fa-regular fa-star text-slate-300 hover:text-ncu-gold transition-colors";
+                }
+            });
+        }
 
         // ================= 核心網格與長條渲染 =================
         function renderCalendar() {
@@ -968,7 +1025,6 @@
                     const cell = document.createElement('div');
                     cell.className = `border-r border-slate-100 last:border-r-0 flex flex-col items-end p-1.5 h-full pointer-events-auto cursor-pointer hover:bg-slate-50/40 transition-colors ${cellBgClass}`;
                     
-                    // 安全格式化年月日
                     const yyyy = day.getFullYear();
                     const mm = String(day.getMonth() + 1).padStart(2, '0');
                     const ddStr = String(day.getDate()).padStart(2, '0');
@@ -1019,8 +1075,9 @@
                     if (isLeftCut) displayTitle = "← " + displayTitle;
                     if (isRightCut) displayTitle = displayTitle + " →";
 
-                    const styleObj = getCategoryStyle(ev.category);
-                    bar.className += ` ${roundedClass} ${styleObj.solid}`;
+                    const catStyle = getCategoryStyle(ev.category);
+
+                    bar.className += ` ${roundedClass} ${catStyle.pillClass}`;
                     bar.style.gridColumn = `${startCol} / span ${span}`;
                     
                     const titleSpan = document.createElement('span');
@@ -1059,14 +1116,14 @@
                 item.onclick = () => openDetailModal(ev.id);
                 
                 const showDate = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
-                const styleObj = getCategoryStyle(ev.category);
-                const catName = getCategoryName(ev.category, ev.customCategoryName);
+                
+                const catStyle = getCategoryStyle(ev.category);
 
                 item.innerHTML = `
                     <div class="flex items-center gap-4">
                         <div class="bg-slate-100 px-3 py-1.5 rounded-lg text-xs font-bold shrink-0">${showDate}</div>
-                        <span class="text-[11px] font-black px-2.5 py-1 rounded-full ${styleObj.badge}">${catName}</span>
-                        <h4 class="font-bold text-slate-800 truncate max-w-sm">${ev.title[currentLang]}</h4>
+                        <span class="text-[11px] font-black px-2.5 py-1 rounded-full ${catStyle.badgeClass}">${catStyle.name}</span>
+                        <h4 class="font-bold text-slate-800 truncate">${ev.title[currentLang]}</h4>
                     </div>
                     <i class="${trackedEventIds.includes(ev.id) ? 'fa-solid fa-star text-amber-500' : 'fa-regular fa-star text-slate-300'}"></i>
                 `;
@@ -1075,37 +1132,98 @@
             parent.appendChild(wrapper);
         }
 
+        // ================= 近期重要時程 (前一週到後一個月) 核心引擎 =================
         function renderUrgentDeadlines() {
             const container = document.getElementById('urgentContainer'); 
             container.innerHTML = "";
             const today = new Date(); 
             today.setHours(0,0,0,0);
             
-            const tracked = campusEvents.filter(ev => trackedEventIds.includes(ev.id)).sort((a,b) => new Date(a.endDate) - new Date(b.endDate));
+            // 計算「前一週」與「後一個月」的時間邊界值
+            const oneWeekAgo = new Date(today);
+            oneWeekAgo.setDate(today.getDate() - 7);
+            const oneMonthLater = new Date(today);
+            oneMonthLater.setMonth(today.getMonth() + 1);
+            oneMonthLater.setHours(23, 59, 59, 999);
+
+            // 篩選：已追蹤，且其活動區間與 [前一週, 後一個月] 具有交集
+            const tracked = (campusEvents || []).filter(ev => {
+                if (!trackedEventIds.includes(ev.id)) return false;
+                
+                const sDate = new Date(ev.startDate);
+                sDate.setHours(0,0,0,0);
+                const eDate = new Date(ev.endDate);
+                eDate.setHours(23, 59, 59, 999);
+
+                return eDate >= oneWeekAgo && sDate <= oneMonthLater;
+            }).sort((a,b) => new Date(a.endDate) - new Date(b.endDate));
+
             tracked.forEach(ev => {
                 const limitDate = new Date(ev.endDate);
                 limitDate.setHours(0,0,0,0);
                 const diff = Math.ceil((limitDate - today) / 86400000);
+                
                 const item = document.createElement('div');
-                item.className = "bg-white/10 p-2 rounded-lg flex justify-between items-center text-xs cursor-pointer";
+                item.className = "bg-white/10 p-2.5 rounded-xl flex justify-between items-center text-xs cursor-pointer hover:bg-white/20 transition-all border border-white/5";
                 item.onclick = () => openDetailModal(ev.id);
-                item.innerHTML = `<div class="truncate flex-1 pr-2"><b>${ev.title[currentLang]}</b><br><span class="opacity-70">${ev.endDate}</span></div><span class="px-2 py-0.5 rounded shrink-0 ${diff <= 3 ? 'bg-red-500 animate-pulse' : 'bg-white/20'}">${diff < 0 ? 'Ended' : (diff === 0 ? 'Today' : diff + 'd')}</span>`;
+                
+                let diffText = "";
+                let badgeClass = "bg-white/20";
+                
+                if (diff < 0) {
+                    // 已截止，但在前一週之內
+                    const absDiff = Math.abs(diff);
+                    diffText = currentLang === 'zh' ? `已截止 ${absDiff} 天` : `Ended ${absDiff}d ago`;
+                    badgeClass = "bg-slate-500/40 text-slate-300 border border-slate-500/20";
+                } else if (diff === 0) {
+                    // 今天截止
+                    diffText = currentLang === 'zh' ? '今天截止' : 'Today';
+                    badgeClass = "bg-red-500 animate-pulse text-white font-black";
+                } else if (diff <= 3) {
+                    // 3 天內即將截止
+                    diffText = currentLang === 'zh' ? `剩 ${diff} 天` : `${diff}d left`;
+                    badgeClass = "bg-red-500/80 animate-pulse text-white font-bold";
+                } else {
+                    // 一個月之內截止
+                    diffText = currentLang === 'zh' ? `剩 ${diff} 天` : `${diff}d left`;
+                    badgeClass = "bg-emerald-500/20 text-emerald-200 border border-emerald-500/30";
+                }
+
+                const showDate = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
+
+                item.innerHTML = `
+                    <div class="truncate flex-1 pr-2">
+                        <b class="text-white text-xs">${ev.title[currentLang]}</b>
+                        <br>
+                        <span class="opacity-60 text-[10px]">${showDate}</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-lg shrink-0 text-[10px] font-medium ${badgeClass}">${diffText}</span>
+                `;
                 container.appendChild(item);
             });
+
+            if (tracked.length === 0) {
+                container.innerHTML = `
+                    <p class="text-xs text-purple-300 italic text-center py-4">
+                        ${currentLang === 'zh' ? '此區間無追蹤日程' : 'No tracked events in this range'}
+                    </p>
+                `;
+            }
         }
 
         function openDetailModal(id) {
             const ev = campusEvents.find(e => e.id === id); 
             if (!ev) return;
+            tempSelectedEventId = id;
 
+            const catStyle = getCategoryStyle(ev.category);
+            
             const headerBar = document.getElementById('modalHeaderBar');
             const catBadge = document.getElementById('modalCategoryBadge');
-            const styleObj = getCategoryStyle(ev.category);
-            const catName = getCategoryName(ev.category, ev.customCategoryName);
-
-            headerBar.style.backgroundColor = styleObj.hex;
-            catBadge.innerText = catName;
-            catBadge.className = `text-xs font-bold px-2.5 py-1 rounded-full ${styleObj.badge}`;
+            
+            headerBar.style.backgroundColor = catStyle.hex;
+            catBadge.innerText = catStyle.name;
+            catBadge.className = `text-xs font-bold px-2.5 py-1 rounded-full ${catStyle.badgeClass}`;
 
             document.getElementById('modalTitle').innerText = ev.title[currentLang];
             document.getElementById('modalDate').innerText = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
@@ -1113,15 +1231,15 @@
             document.getElementById('modalDesc').innerText = ev.desc[currentLang];
             document.getElementById('modalTrackBtnText').innerText = trackedEventIds.includes(id) ? dictionary[currentLang].untrackSuccess : dictionary[currentLang].trackSuccess;
             document.getElementById('detailModal').classList.remove('hidden');
-            window.tempId = id;
         }
 
         function toggleTrackEventFromModal() {
-            const i = trackedEventIds.indexOf(window.tempId);
-            if (i > -1) trackedEventIds.splice(i, 1); else trackedEventIds.push(window.tempId);
+            const i = trackedEventIds.indexOf(tempSelectedEventId);
+            if (i > -1) trackedEventIds.splice(i, 1); else trackedEventIds.push(tempSelectedEventId);
             showToast(i > -1 ? dictionary[currentLang].untrackSuccess : dictionary[currentLang].trackSuccess);
             closeDetailModal(); 
             updateUiLanguage(); 
+            updateCategoryStars();
             renderCalendar(); 
             renderUrgentDeadlines();
         }
@@ -1147,8 +1265,9 @@
             const category = categorySelect.value;
             const startDate = document.getElementById('formStartDate').value;
             const endDate = document.getElementById('formEndDate').value;
-            const deptZh = document.getElementById('formDept').value;
-            const descZh = document.getElementById('formDesc').value;
+            
+            const deptZh = document.getElementById('formDept').value || (currentLang === 'zh' ? "無備註" : "No Note");
+            const descZh = document.getElementById('formDesc').value || (currentLang === 'zh' ? "無說明" : "No Description");
 
             const newEvent = {
                 id: `ev-${Date.now()}`,
@@ -1163,6 +1282,7 @@
 
             campusEvents.push(newEvent);
             closeAdminModal();
+            updateCategoryStars();
             renderCalendar();
             renderUrgentDeadlines();
 
@@ -1236,22 +1356,42 @@
         }
 
         function toggleAiPanel() { document.getElementById('aiPanel').classList.toggle('hidden'); }
-        function askQuickQuestion(text) { document.getElementById('aiInput').value = text; handleSendMessage(new Event('submit')); }
+        
+        function askQuickQuestion(text) {
+            const input = document.getElementById('aiInput');
+            input.value = text;
+            const mockEvent = new Event('submit', { cancelable: true });
+            handleSendMessage(mockEvent);
+        }
 
         async function handleSendMessage(e) {
-            if (e) e.preventDefault();
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault();
+            }
+            
             const input = document.getElementById('aiInput');
             const text = input.value.trim();
-            if (!text) return;
+            if (!text) return false; 
+
             appendChatBubble(text, 'user');
             input.value = "";
+
             const typingId = appendChatBubble(`<i class="fa-solid fa-ellipsis animate-bounce"></i>`, 'typing');
+
             setTimeout(async () => {
                 const typingBubble = document.getElementById(typingId);
                 if (typingBubble) typingBubble.remove();
-                const answer = await getAiResponse(text);
-                appendChatBubble(answer, 'assistant');
+                
+                try {
+                    const answer = await getAiResponse(text);
+                    appendChatBubble(answer, 'assistant');
+                } catch (err) {
+                    console.error("AI 錯誤:", err);
+                    appendChatBubble("不好意思，系統查詢時發生了錯誤。請稍後再試。", 'assistant');
+                }
             }, 800);
+            
+            return false; 
         }
 
         function appendChatBubble(text, sender) {
@@ -1291,32 +1431,103 @@
 
         async function getAiResponse(prompt) {
             if (apiKey) return await callRealGeminiApi(prompt);
-            return `目前系統內的舊事件已為您清空，等待填入最新 JSON。您可以先測試 AI 介面外觀！`;
+
+            const p = prompt.toLowerCase();
+            let intentCategory = null;
+            if (p.includes('學籍') || p.includes('註冊') || p.includes('休學')) intentCategory = 'enrollment';
+            if (p.includes('選課') || p.includes('退選') || p.includes('初選')) intentCategory = 'course';
+            if (p.includes('畢業') || p.includes('學位') || p.includes('離校')) intentCategory = 'degree';
+            if (p.includes('成績') || p.includes('期中') || p.includes('期末')) intentCategory = 'grading';
+            if (p.includes('新生')) intentCategory = 'freshman';
+            if (p.includes('宿') || p.includes('床位') || p.includes('搬遷')) intentCategory = 'housing';
+            if (p.includes('補助') || p.includes('學雜費')) intentCategory = 'financial';
+            if (p.includes('活動') || p.includes('社團') || p.includes('校慶')) intentCategory = 'activity';
+            if (p.includes('停電') || p.includes('整修') || p.includes('施工')) intentCategory = 'admin';
+            if (p.includes('假') || p.includes('節')) intentCategory = 'holiday';
+
+            let foundEvents = (campusEvents || []).filter(ev => {
+                const zhTitle = ev?.title?.zh?.toLowerCase() || "";
+                const enTitle = ev?.title?.en?.toLowerCase() || "";
+                const zhDesc = ev?.desc?.zh?.toLowerCase() || "";
+                const enDesc = ev?.desc?.en?.toLowerCase() || "";
+                
+                const titleMatch = zhTitle.includes(p) || enTitle.includes(p);
+                const descMatch = zhDesc.includes(p) || enDesc.includes(p);
+                const catMatch = intentCategory ? ev.category === intentCategory : false;
+                
+                return titleMatch || descMatch || catMatch;
+            });
+
+            foundEvents.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+            if (foundEvents.length > 0) {
+                const displayEvents = foundEvents.slice(0, 3);
+                let res = `【本地檢索結果】為您在校曆中找到以下相關資訊：<br><br>`;
+                displayEvents.forEach(ev => {
+                    const dateStr = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
+                    const title = ev.title[currentLang] || ev.title.zh || "無標題";
+                    const dept = ev.dept[currentLang] || ev.dept.zh || "未知單位";
+                    res += `📅 <b>${title}</b><br>
+                            <span class="text-[10px] text-slate-500">時間：${dateStr} | 單位：${dept}</span><br><br>`;
+                });
+                
+                if (foundEvents.length > 3) {
+                    res += `<span class="text-xs text-ncu-purple">...還有其他 ${foundEvents.length - 3} 筆結果，建議可使用側邊欄篩選器查看。</span><br><br>`;
+                }
+                
+                res += `💡 <b>提示：</b>點擊右上方鑰匙按鈕輸入 <b class="text-ncu-purple">Gemini API Key</b>，即可解鎖更強大的自然語意問答！`;
+                return res;
+            }
+
+            return `哈囉！我是本地智慧秘書。您問了「${prompt}」，但在目前載入的校曆中沒有找到完全匹配的字詞。<br><br>💡 <b>提示：</b> 若您設定了 <b>Gemini API Key</b>，我將能運用 AI 語意理解幫您找出更精準的答案！`;
         }
 
         async function callRealGeminiApi(userQuery) {
-            const systemPrompt = `你是一個中大智慧校園秘書。目前行事曆資訊如下:\n${JSON.stringify(campusEvents)}`;
-            const payload = { contents: [{ parts: [{ text: userQuery }] }], systemInstruction: { parts: [{ text: systemPrompt }] } };
+            const todayDate = new Date();
+            const todayStr = `${todayDate.getFullYear()}-${String(todayDate.getMonth() + 1).padStart(2, '0')}-${String(todayDate.getDate()).padStart(2, '0')}`;
+            
+            const systemPrompt = `你是一個專業、親切的「中央大學智慧校園秘書」。
+現在的實際時間是：${todayStr}。
+以下是目前校曆的完整資料 (JSON格式):\n${JSON.stringify(campusEvents)}
+
+【回答規則】
+1. 請針對使用者的問題，從上述 JSON 中找出符合的事件來回答。
+2. 回答時，請列出「日期區間」、「事件名稱」與「承辦單位」。
+3. 語氣要生動活潑，像個貼心的小助手。
+4. 如果問題問到「下週」、「明天」等相對時間，請務必以 ${todayStr} 為基準來推算。
+5. 嚴禁編造 JSON 中不存在的事件與日期。若找不到相關資訊，請委婉告知校曆上目前沒有此安排。
+6. 請使用 HTML 標籤 (如 <b>, <br>, <ul>, <li>) 來排版，讓畫面易於閱讀。不要使用 Markdown (**, ##)，因為前端不會解析。`;
+
+            const payload = { 
+                contents: [{ parts: [{ text: userQuery }] }], 
+                systemInstruction: { parts: [{ text: systemPrompt }] } 
+            };
+            
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
             let delay = 1000;
             for (let i = 0; i < 5; i++) {
                 try {
-                    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    const response = await fetch(url, { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify(payload) 
+                    });
                     if (response.ok) {
                         const data = await response.json();
                         const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                        return (rawText || "AI 錯誤。").replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+                        return rawText || "AI 思考中斷，請再試一次。";
                     }
                 } catch (error) {}
                 await new Promise(resolve => setTimeout(resolve, delay));
                 delay *= 2;
             }
-            return "連線失敗。";
+            return "連線失敗，請檢查網路狀態或 API Key 是否有效。";
         }
 
         function openApiKeyModal() { document.getElementById('apiKeyModal').classList.remove('hidden'); }
         function closeApiKeyModal() { document.getElementById('apiKeyModal').classList.add('hidden'); }
+
         function saveApiKey() {
             const keyVal = document.getElementById('apiKeyInput').value.trim();
             apiKey = keyVal;
@@ -1325,17 +1536,39 @@
             showToast(keyVal ? dictionary[currentLang].apiSaved : dictionary[currentLang].apiCleared, keyVal ? "success" : "warning");
         }
 
-        // ================== 強制同步啟動 (100% 防白屏) ==================
-        function initApp() {
+        // ================== 從 calendar.json 非同步載入資料與啟動 ==================
+        async function initSystem() {
+            try {
+                const response = await fetch('calendar.json');
+                if (response.ok) {
+                    campusEvents = await response.json();
+                } else {
+                    console.error("無法讀取 calendar.json:", response.status);
+                    showToast("讀取 calendar.json 失敗，請確認檔案是否存在且檔名正確。", "warning");
+                }
+            } catch (error) {
+                console.error("Fetch 錯誤:", error);
+                showToast("讀取失敗：若在本地端開啟，請透過 Local Server 運行網頁。", "warning");
+            }
+            
             updateUiLanguage();
+            updateCategoryStars();
             renderCalendar();
             renderUrgentDeadlines();
+            
+            const chatForm = document.getElementById('aiChatForm');
+            if (chatForm) {
+                chatForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleSendMessage(e);
+                });
+            }
         }
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initApp);
+            window.addEventListener('DOMContentLoaded', initSystem);
         } else {
-            initApp();
+            initSystem();
         }
 
     </script>
