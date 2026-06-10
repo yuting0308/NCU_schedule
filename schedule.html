@@ -1593,7 +1593,7 @@
         // ================== 從 calendar.json 非同步載入資料與啟動 ==================
         async function initSystem() {
             try {
-                const response = await fetch('calendar.json');
+                const response = await fetch('./calendar.json');
                 if (response.ok) {
                     campusEvents = await response.json();
                 } else {
