@@ -364,10 +364,11 @@
                 <button type="button" id="ui-chipDorm" onclick="askQuickQuestion(currentLang === 'zh' ? '第2學期宿舍申請是哪時候？' : 'When is the dorm application for next semester?')" class="bg-slate-100 hover:bg-ncu-lightPurple hover:text-ncu-purple px-2.5 py-1 rounded-full text-slate-600 transition-colors shrink-0">2學期宿舍申請？</button>
             </div>
 
+            <!-- 完美的 Form 機制，綁定在下方 setupChatListeners 防止重整 -->
             <form id="aiChatForm" class="border-t border-slate-200 p-3 bg-white flex items-center gap-2">
                 <input type="text" id="aiInput" class="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-ncu-purple focus:border-transparent transition-all" placeholder="請輸入您的問題...">
-                <button type="submit" class="w-9 h-9 bg-ncu-purple hover:bg-ncu-purpleHover text-white rounded-xl flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                <button type="submit" id="aiSendBtn" class="w-9 h-9 bg-ncu-purple hover:bg-ncu-purpleHover text-white rounded-xl flex items-center justify-center transition-colors">
+                    <i id="aiSendIcon" class="fa-solid fa-paper-plane text-xs"></i>
                 </button>
             </form>
         </div>
@@ -898,7 +899,7 @@
                 holiday:    { nameObj: 'catHoliday', pill: 'bg-pink-500 text-white border-pink-600', badge: 'bg-pink-100 text-pink-800', hex: '#EC4899', cell: 'bg-pink-50 text-pink-700 border-pink-200' },
                 personal:   { nameObj: 'catPersonal', pill: 'bg-slate-600 text-white border-slate-700', badge: 'bg-slate-100 text-slate-800', hex: '#475569', cell: 'bg-slate-50 text-slate-700 border-slate-200' }
             };
-            const s = styles[category] || styles.personal;
+            const s = styles[category] || styles.personal; // 找不到預設為個人事項
             return {
                 name: dictionary[currentLang][s.nameObj],
                 pillClass: s.pill,
@@ -1116,7 +1117,6 @@
                 item.onclick = () => openDetailModal(ev.id);
                 
                 const showDate = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
-                
                 const catStyle = getCategoryStyle(ev.category);
 
                 item.innerHTML = `
@@ -1132,83 +1132,23 @@
             parent.appendChild(wrapper);
         }
 
-        // ================= 近期重要時程 (前一週到後一個月) 核心引擎 =================
         function renderUrgentDeadlines() {
             const container = document.getElementById('urgentContainer'); 
             container.innerHTML = "";
             const today = new Date(); 
             today.setHours(0,0,0,0);
             
-            // 計算「前一週」與「後一個月」的時間邊界值
-            const oneWeekAgo = new Date(today);
-            oneWeekAgo.setDate(today.getDate() - 7);
-            const oneMonthLater = new Date(today);
-            oneMonthLater.setMonth(today.getMonth() + 1);
-            oneMonthLater.setHours(23, 59, 59, 999);
-
-            // 篩選：已追蹤，且其活動區間與 [前一週, 後一個月] 具有交集
-            const tracked = (campusEvents || []).filter(ev => {
-                if (!trackedEventIds.includes(ev.id)) return false;
-                
-                const sDate = new Date(ev.startDate);
-                sDate.setHours(0,0,0,0);
-                const eDate = new Date(ev.endDate);
-                eDate.setHours(23, 59, 59, 999);
-
-                return eDate >= oneWeekAgo && sDate <= oneMonthLater;
-            }).sort((a,b) => new Date(a.endDate) - new Date(b.endDate));
-
+            const tracked = campusEvents.filter(ev => trackedEventIds.includes(ev.id)).sort((a,b) => new Date(a.endDate) - new Date(b.endDate));
             tracked.forEach(ev => {
                 const limitDate = new Date(ev.endDate);
                 limitDate.setHours(0,0,0,0);
                 const diff = Math.ceil((limitDate - today) / 86400000);
-                
                 const item = document.createElement('div');
-                item.className = "bg-white/10 p-2.5 rounded-xl flex justify-between items-center text-xs cursor-pointer hover:bg-white/20 transition-all border border-white/5";
+                item.className = "bg-white/10 p-2 rounded-lg flex justify-between items-center text-xs cursor-pointer";
                 item.onclick = () => openDetailModal(ev.id);
-                
-                let diffText = "";
-                let badgeClass = "bg-white/20";
-                
-                if (diff < 0) {
-                    // 已截止，但在前一週之內
-                    const absDiff = Math.abs(diff);
-                    diffText = currentLang === 'zh' ? `已截止 ${absDiff} 天` : `Ended ${absDiff}d ago`;
-                    badgeClass = "bg-slate-500/40 text-slate-300 border border-slate-500/20";
-                } else if (diff === 0) {
-                    // 今天截止
-                    diffText = currentLang === 'zh' ? '今天截止' : 'Today';
-                    badgeClass = "bg-red-500 animate-pulse text-white font-black";
-                } else if (diff <= 3) {
-                    // 3 天內即將截止
-                    diffText = currentLang === 'zh' ? `剩 ${diff} 天` : `${diff}d left`;
-                    badgeClass = "bg-red-500/80 animate-pulse text-white font-bold";
-                } else {
-                    // 一個月之內截止
-                    diffText = currentLang === 'zh' ? `剩 ${diff} 天` : `${diff}d left`;
-                    badgeClass = "bg-emerald-500/20 text-emerald-200 border border-emerald-500/30";
-                }
-
-                const showDate = ev.startDate === ev.endDate ? ev.startDate : `${ev.startDate} ~ ${ev.endDate}`;
-
-                item.innerHTML = `
-                    <div class="truncate flex-1 pr-2">
-                        <b class="text-white text-xs">${ev.title[currentLang]}</b>
-                        <br>
-                        <span class="opacity-60 text-[10px]">${showDate}</span>
-                    </div>
-                    <span class="px-2 py-0.5 rounded-lg shrink-0 text-[10px] font-medium ${badgeClass}">${diffText}</span>
-                `;
+                item.innerHTML = `<div class="truncate flex-1 pr-2"><b>${ev.title[currentLang]}</b><br><span class="opacity-70">${ev.endDate}</span></div><span class="px-2 py-0.5 rounded shrink-0 ${diff <= 3 ? 'bg-red-500 animate-pulse' : 'bg-white/20'}">${diff < 0 ? 'Ended' : (diff === 0 ? 'Today' : diff + 'd')}</span>`;
                 container.appendChild(item);
             });
-
-            if (tracked.length === 0) {
-                container.innerHTML = `
-                    <p class="text-xs text-purple-300 italic text-center py-4">
-                        ${currentLang === 'zh' ? '此區間無追蹤日程' : 'No tracked events in this range'}
-                    </p>
-                `;
-            }
         }
 
         function openDetailModal(id) {
@@ -1239,7 +1179,6 @@
             showToast(i > -1 ? dictionary[currentLang].untrackSuccess : dictionary[currentLang].trackSuccess);
             closeDetailModal(); 
             updateUiLanguage(); 
-            updateCategoryStars();
             renderCalendar(); 
             renderUrgentDeadlines();
         }
@@ -1282,7 +1221,6 @@
 
             campusEvents.push(newEvent);
             closeAdminModal();
-            updateCategoryStars();
             renderCalendar();
             renderUrgentDeadlines();
 
@@ -1359,44 +1297,101 @@
         
         function askQuickQuestion(text) {
             const input = document.getElementById('aiInput');
-            input.value = text;
-            const mockEvent = new Event('submit', { cancelable: true });
-            handleSendMessage(mockEvent);
+            if (input) {
+                input.value = text;
+                // 手動呼叫表單送出邏輯
+                handleSendMessage();
+            }
         }
 
+        // ================== 對話框發送的核心限制與載入狀態 (100% 阻斷重整) ==================
+        let isAiThinking = false;
+
         async function handleSendMessage(e) {
-            if (e && typeof e.preventDefault === 'function') {
-                e.preventDefault();
-            }
-            
+            if (isAiThinking) return false;
+
             const input = document.getElementById('aiInput');
+            const sendBtn = document.getElementById('aiSendBtn');
+            const sendIcon = document.getElementById('aiSendIcon');
+            
             const text = input.value.trim();
             if (!text) return false; 
 
+            isAiThinking = true;
+
+            // 1. 鎖定輸入介面
+            input.disabled = true;
+            if (sendBtn) {
+                sendBtn.disabled = true;
+                sendBtn.classList.remove('bg-ncu-purple', 'hover:bg-ncu-purpleHover');
+                sendBtn.classList.add('bg-slate-300', 'cursor-not-allowed');
+            }
+            if (sendIcon) {
+                sendIcon.className = "fa-solid fa-spinner animate-spin text-xs";
+            }
+            const originalPlaceholder = input.placeholder;
+            input.placeholder = currentLang === 'zh' ? "智慧秘書思考中..." : "Secretary is thinking...";
+
+            // 2. 顯示使用者對話泡泡並清空
             appendChatBubble(text, 'user');
             input.value = "";
 
-            const typingId = appendChatBubble(`<i class="fa-solid fa-ellipsis animate-bounce"></i>`, 'typing');
+            // 3. 顯示高質感「正在檢索」動畫泡泡
+            const typingText = currentLang === 'zh' 
+                ? `<div class="flex items-center gap-2 text-slate-500 font-medium">
+                    <i class="fa-solid fa-hourglass-half animate-spin text-ncu-purple"></i>
+                    <span>正在為您檢索校曆大數據...</span>
+                   </div>`
+                : `<div class="flex items-center gap-2 text-slate-500 font-medium">
+                    <i class="fa-solid fa-hourglass-half animate-spin text-ncu-purple"></i>
+                    <span>Searching campus calendar...</span>
+                   </div>`;
+            const typingId = appendChatBubble(typingText, 'typing');
 
+            // 4. 進行非同步查詢與介面解鎖
             setTimeout(async () => {
-                const typingBubble = document.getElementById(typingId);
-                if (typingBubble) typingBubble.remove();
-                
                 try {
                     const answer = await getAiResponse(text);
+                    
+                    // 移除讀取動畫
+                    const typingBubble = document.getElementById(typingId);
+                    if (typingBubble) typingBubble.remove();
+
+                    // 顯示 AI 回覆
                     appendChatBubble(answer, 'assistant');
                 } catch (err) {
                     console.error("AI 錯誤:", err);
-                    appendChatBubble("不好意思，系統查詢時發生了錯誤。請稍後再試。", 'assistant');
+                    const typingBubble = document.getElementById(typingId);
+                    if (typingBubble) typingBubble.remove();
+                    appendChatBubble(
+                        currentLang === 'zh' ? "不好意思，智慧秘書連線發生異常。請確認您的網路連線或稍後再試。" : "Sorry, an error occurred while searching. Please try again.", 
+                        'assistant'
+                    );
+                } finally {
+                    // 解鎖並還原 UI 狀態
+                    isAiThinking = false;
+                    input.disabled = false;
+                    if (sendBtn) {
+                        sendBtn.disabled = false;
+                        sendBtn.classList.remove('bg-slate-300', 'cursor-not-allowed');
+                        sendBtn.classList.add('bg-ncu-purple', 'hover:bg-ncu-purpleHover');
+                    }
+                    if (sendIcon) {
+                        sendIcon.className = "fa-solid fa-paper-plane text-xs";
+                    }
+                    input.placeholder = originalPlaceholder;
+                    input.focus();
                 }
-            }, 800);
+            }, 1000); // 完美的體感讀取延遲
             
             return false; 
         }
 
+        // ================== 重構：修正 appendChatBubble 對話繪製崩潰 Bug ==================
         function appendChatBubble(text, sender) {
             const chatHistory = document.getElementById('aiChatHistory');
-            const bubbleId = `bubble-${Date.now()}`;
+            const bubbleId = `bubble-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`; // 隨機 ID 防重複
+            
             const div = document.createElement('div');
             div.id = bubbleId;
             div.className = "flex gap-2.5 items-start " + (sender === 'user' ? 'justify-end' : 'justify-start');
@@ -1406,22 +1401,20 @@
                 avatarHtml = `<div class="w-7 h-7 rounded-lg bg-slate-300 flex items-center justify-center text-slate-600 shrink-0 order-2"><i class="fa-solid fa-user text-xs"></i></div>`;
             }
 
-            const bubble = document.createElement('div');
+            let bubbleClass = "bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 shadow-sm max-w-[85%] text-xs md:text-sm text-slate-800 leading-relaxed";
             if (sender === 'user') {
-                bubble.className = "bg-ncu-purple text-white rounded-2xl rounded-tr-none p-3 shadow-sm max-w-[85%] text-xs md:text-sm";
+                bubbleClass = "bg-ncu-purple text-white rounded-2xl rounded-tr-none p-3 shadow-sm max-w-[85%] text-xs md:text-sm";
             } else if (sender === 'typing') {
-                bubble.className = "bg-slate-200 text-slate-600 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-xs";
-            } else {
-                bubble.className = "bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 shadow-sm max-w-[85%] text-xs md:text-sm text-slate-800 leading-relaxed";
+                bubbleClass = "bg-slate-100 text-slate-500 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-xs";
             }
-            bubble.innerHTML = text;
 
+            const bubbleHtml = `<div class="${bubbleClass}">${text}</div>`;
+
+            // 使用安全乾淨的 innerHTML 渲染字串，避免原生 appendChild(string) 崩潰
             if (sender === 'user') {
-                div.appendChild(bubble);
-                div.appendChild(avatarHtml);
+                div.innerHTML = bubbleHtml + avatarHtml;
             } else {
-                div.appendChild(avatarHtml);
-                div.appendChild(bubble);
+                div.innerHTML = avatarHtml + bubbleHtml;
             }
 
             chatHistory.appendChild(div);
@@ -1445,6 +1438,7 @@
             if (p.includes('停電') || p.includes('整修') || p.includes('施工')) intentCategory = 'admin';
             if (p.includes('假') || p.includes('節')) intentCategory = 'holiday';
 
+            // 防呆檢索，確保 undefined 不會造成系統崩潰
             let foundEvents = (campusEvents || []).filter(ev => {
                 const zhTitle = ev?.title?.zh?.toLowerCase() || "";
                 const enTitle = ev?.title?.en?.toLowerCase() || "";
@@ -1495,7 +1489,7 @@
 2. 回答時，請列出「日期區間」、「事件名稱」與「承辦單位」。
 3. 語氣要生動活潑，像個貼心的小助手。
 4. 如果問題問到「下週」、「明天」等相對時間，請務必以 ${todayStr} 為基準來推算。
-5. 嚴禁編造 JSON 中不存在的事件與日期。若找不到相關資訊，請委婉告知校曆上目前沒有此安排。
+5. 嚴禁編造 JSON 中不存在的事件與日期。若找不到相關資訊，請委盤告知校曆上目前沒有此安排。
 6. 請使用 HTML 標籤 (如 <b>, <br>, <ul>, <li>) 來排版，讓畫面易於閱讀。不要使用 Markdown (**, ##)，因為前端不會解析。`;
 
             const payload = { 
@@ -1552,10 +1546,10 @@
             }
             
             updateUiLanguage();
-            updateCategoryStars();
             renderCalendar();
             renderUrgentDeadlines();
             
+            // 綁定表單提交事件，徹底防護重整
             const chatForm = document.getElementById('aiChatForm');
             if (chatForm) {
                 chatForm.addEventListener('submit', function(e) {
@@ -1565,6 +1559,7 @@
             }
         }
 
+        // 確保 DOM 載入後才啟動
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', initSystem);
         } else {
